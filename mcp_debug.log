@@ -1,0 +1,18 @@
+2025-03-21 23:23:26,756 - mcp_wrapper - INFO - MCP wrapper starting...
+2025-03-21 23:23:26,756 - mcp_wrapper - INFO - Starting web server on port 8765
+2025-03-21 23:23:26,763 - mcp_wrapper - INFO - Waiting for server to start on port 8765
+2025-03-21 23:23:26,777 - mcp_wrapper - INFO - Server is up and running!
+2025-03-21 23:23:26,777 - mcp_wrapper - INFO - Server started successfully, starting MCP handler
+2025-03-21 23:23:26,777 - mcp_wrapper - INFO - Starting MCP handler
+2025-03-21 23:23:26,777 - mcp_wrapper - INFO - Received message: {"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"claude-ai","version":"0.1.0"}},"jsonrpc":"2.0","id":0}
+2025-03-21 23:23:26,778 - mcp_wrapper - INFO - Handling initialize request
+2025-03-21 23:23:26,778 - mcp_wrapper - INFO - Sent response: {"jsonrpc": "2.0", "id": 0, "result": {"capabilities": {}}}
+2025-03-21 23:23:29,355 - mcp_wrapper - INFO - MCP wrapper starting...
+2025-03-21 23:23:29,355 - mcp_wrapper - INFO - Starting web server on port 8765
+2025-03-21 23:23:29,363 - mcp_wrapper - INFO - Waiting for server to start on port 8765
+2025-03-21 23:23:29,371 - mcp_wrapper - INFO - Server is up and running!
+2025-03-21 23:23:29,371 - mcp_wrapper - INFO - Server started successfully, starting MCP handler
+2025-03-21 23:23:29,371 - mcp_wrapper - INFO - Starting MCP handler
+2025-03-21 23:23:29,371 - mcp_wrapper - INFO - Received message: {"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"claude-ai","version":"0.1.0"}},"jsonrpc":"2.0","id":0}
+2025-03-21 23:23:29,374 - mcp_wrapper - INFO - Handling initialize request
+2025-03-21 23:23:29,374 - mcp_wrapper - INFO - Sent response: {"jsonrpc": "2.0", "id": 0, "result": {"capabilities": {}}}

@@ -54,8 +54,8 @@ Empirical experiments conducted on six foundation models demonstrate superior pe
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/WujiangXu/AgenticMemory.git
-cd AgenticMemory
+git clone https://github.com/agiresearch/A-mem.git
+cd A-mem
 ```
 
 2. Install dependencies:
@@ -196,3 +196,82 @@ If you use this code in your research, please cite our work:
 ## License 📄
 
 This project is licensed under the MIT License. See LICENSE for details.
+
+## MCP Server (Memory Control Protocol) 🖥️
+
+This repository includes a FastAPI-based MCP server that exposes A-MEM's functionality through a REST API.
+
+### Server Setup 🔧
+
+1. Configure environment variables in the `.env` file:
+```bash
+# Edit your OpenAI API key in the .env file
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Optional: For OpenAI-compatible APIs (like LiteLLM, vLLM, etc.)
+OPENAI_API_URL=https://your-custom-api-endpoint.com/v1
+```
+
+2. Run the server:
+```bash
+uvicorn server:app --host 0.0.0.0 --port 8000 --reload
+```
+
+3. Access API documentation:
+   - Swagger UI: http://localhost:8000/docs
+   - ReDoc: http://localhost:8000/redoc
+
+### API Endpoints 🔌
+
+- **Create Memory**: `POST /api/v1/memories`
+- **Get Memory**: `GET /api/v1/memories/{id}`
+- **Update Memory**: `PUT /api/v1/memories/{id}`
+- **Delete Memory**: `DELETE /api/v1/memories/{id}`
+- **Search Memories**: `GET /api/v1/search?query={query}&k={k}`
+
+### Using OpenAI-Compatible APIs 🔄
+
+The MCP server supports using alternative OpenAI-compatible APIs. This is useful if you want to:
+- Use local models through services like LiteLLM or vLLM
+- Connect to a self-hosted model server
+- Use other commercial API providers with OpenAI-compatible endpoints
+
+To use a custom API endpoint:
+1. Set the `OPENAI_API_URL` environment variable in your `.env` file
+2. Make sure your API endpoint is compatible with the OpenAI API format
+3. Your API must support the chat completions endpoint and JSON response formats
+
+Example configuration for different backends:
+
+**Local server with LiteLLM:**
+```
+OPENAI_API_URL=http://localhost:8000/v1
+```
+
+**Local server with vLLM:**
+```
+OPENAI_API_URL=http://localhost:8000/v1
+```
+
+**NVIDIA AI Playground:**
+```
+OPENAI_API_URL=https://api.nvcf.nvidia.com/v1
+```
+
+### Sample Usage with cURL 🔄
+
+**Create a memory**:
+```bash
+curl -X POST "http://localhost:8000/api/v1/memories" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "Large Language Models require sophisticated memory systems for effective operation.",
+    "tags": ["llm", "memory", "ai"],
+    "category": "Research"
+  }'
+```
+
+**Search memories**:
+```bash
+curl -X GET "http://localhost:8000/api/v1/search?query=language%20models&k=3"
+```

@@ -11,7 +11,7 @@ class BaseLLMController(ABC):
         pass
 
 class OpenAIController(BaseLLMController):
-    def __init__(self, model: str = "gpt-4", api_key: Optional[str] = None):
+    def __init__(self, model: str = "gpt-4", api_key: Optional[str] = None, api_base: Optional[str] = None):
         try:
             from openai import OpenAI
             self.model = model
@@ -19,7 +19,13 @@ class OpenAIController(BaseLLMController):
                 api_key = os.getenv('OPENAI_API_KEY')
             if api_key is None:
                 raise ValueError("OpenAI API key not found. Set OPENAI_API_KEY environment variable.")
-            self.client = OpenAI(api_key=api_key)
+            
+            # Initialize with custom base URL if provided
+            client_kwargs = {"api_key": api_key}
+            if api_base and api_base.strip():
+                client_kwargs["base_url"] = api_base
+                
+            self.client = OpenAI(**client_kwargs)
         except ImportError:
             raise ImportError("OpenAI package not found. Install it with: pip install openai")
     
@@ -88,9 +94,10 @@ class LLMController:
     def __init__(self, 
                  backend: Literal["openai", "ollama"] = "openai",
                  model: str = "gpt-4", 
-                 api_key: Optional[str] = None):
+                 api_key: Optional[str] = None,
+                 api_base: Optional[str] = None):
         if backend == "openai":
-            self.llm = OpenAIController(model, api_key)
+            self.llm = OpenAIController(model, api_key, api_base)
         elif backend == "ollama":
             self.llm = OllamaController(model)
         else:

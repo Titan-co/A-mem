@@ -1,0 +1,342 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "A-MEM API",
+    "version": "1.0.0",
+    "description": "Memory Control Protocol API for Agentic Memory System"
+  },
+  "paths": {
+    "/memories": {
+      "post": {
+        "operationId": "create_memory",
+        "summary": "Create a new memory",
+        "description": "Add a new memory to the A-MEM system",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoryCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Memory created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemoryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/memories/{memory_id}": {
+      "get": {
+        "operationId": "get_memory",
+        "summary": "Retrieve a memory by ID",
+        "description": "Get a memory from the A-MEM system by its ID",
+        "parameters": [
+          {
+            "name": "memory_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the memory to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Memory retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "update_memory",
+        "summary": "Update an existing memory",
+        "description": "Update a memory in the A-MEM system",
+        "parameters": [
+          {
+            "name": "memory_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the memory to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoryUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Memory updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "delete_memory",
+        "summary": "Delete a memory by ID",
+        "description": "Delete a memory from the A-MEM system",
+        "parameters": [
+          {
+            "name": "memory_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the memory to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Memory deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "operationId": "search_memories",
+        "summary": "Search for memories",
+        "description": "Search for memories in the A-MEM system using a query",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search query text"
+          },
+          {
+            "name": "k",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 5
+            },
+            "description": "Maximum number of results to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemorySearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MemoryCreateRequest": {
+        "type": "object",
+        "required": ["content"],
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "The main text content of the memory"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Classification tags for the memory"
+          },
+          "category": {
+            "type": "string",
+            "description": "Classification category"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Creation time in format YYYYMMDDHHMM"
+          }
+        }
+      },
+      "MemoryUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "The main text content of the memory"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Classification tags for the memory"
+          },
+          "category": {
+            "type": "string",
+            "description": "Classification category"
+          },
+          "context": {
+            "type": "string",
+            "description": "The broader context or domain of the memory"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Key terms extracted from the content"
+          }
+        }
+      },
+      "MemoryResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the memory"
+          },
+          "content": {
+            "type": "string",
+            "description": "The main text content of the memory"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Classification tags for the memory"
+          },
+          "category": {
+            "type": "string",
+            "description": "Classification category"
+          },
+          "context": {
+            "type": "string",
+            "description": "The broader context or domain of the memory"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Key terms extracted from the content"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Creation time in format YYYYMMDDHHMM"
+          },
+          "last_accessed": {
+            "type": "string",
+            "description": "Last access time in format YYYYMMDDHHMM"
+          },
+          "retrieval_count": {
+            "type": "integer",
+            "description": "Number of times this memory has been accessed"
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "References to related memories"
+          }
+        }
+      },
+      "MemorySearchResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Memory ID"
+          },
+          "content": {
+            "type": "string",
+            "description": "Memory content"
+          },
+          "context": {
+            "type": "string",
+            "description": "Memory context"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Memory keywords"
+          },
+          "score": {
+            "type": "number",
+            "description": "Similarity score"
+          }
+        }
+      },
+      "MemorySearchResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MemorySearchResult"
+            },
+            "description": "Search results"
+          }
+        }
+      },
+      "DeleteResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Whether the operation was successful"
+          },
+          "message": {
+            "type": "string",
+            "description": "Additional information about the operation"
+          }
+        }
+      }
+    }
+  }
+}

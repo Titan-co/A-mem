@@ -84,6 +84,7 @@ class AgenticMemorySystem:
                  llm_model: str = "gpt-4",
                  evo_threshold: int = 3,
                  api_key: Optional[str] = None,
+                 api_base: Optional[str] = None,
                  llm_controller = None):  
         """Initialize the memory system.
         
@@ -98,7 +99,7 @@ class AgenticMemorySystem:
         self.memories = {}
         self.retriever = SimpleEmbeddingRetriever(model_name)
         self.chroma_retriever = ChromaRetriever()
-        self.llm_controller = llm_controller or LLMController(llm_backend, llm_model, api_key)
+        self.llm_controller = llm_controller or LLMController(llm_backend, llm_model, api_key, api_base)
         self.evo_cnt = 0
         self.evo_threshold = evo_threshold
 
