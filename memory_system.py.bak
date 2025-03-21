@@ -435,9 +435,6 @@ class AgenticMemorySystem:
         if not neighbors:
             return False
             
-        # Store the IDs of neighbors for later use
-        neighbor_ids = [mem['id'] for mem in neighbors if 'id' in mem]
-            
         # Format neighbors for LLM
         neighbors_text = "\n".join([
             f"Memory {mem['id']}:\n"
@@ -474,38 +471,16 @@ class AgenticMemorySystem:
                         new_tags_neighborhood = response_json["new_tags_neighborhood"]
                         noteslist = list(self.memories.values())
                         notes_id = list(self.memories.keys())
-                        
-                        # Create a mapping from neighbor ID to its index in the memory list
-                        indices = []
-                        for neighbor_id in neighbor_ids:
-                            if neighbor_id in notes_id:
-                                indices.append(notes_id.index(neighbor_id))
-                            else:
-                                indices.append(-1)  # Invalid index as a fallback
-                        
-                        # Make sure we have valid indices to work with
-                        if not indices:
-                            logger.warning("No valid memory indices found for evolution")
-                            continue
-                        
-                        # Make sure we don't go out of bounds
-                        max_updates = min(len(indices), len(new_tags_neighborhood), len(new_context_neighborhood))
-                        
-                        for i in range(max_updates):
+                        for i in range(len(new_tags_neighborhood)):
                             # find some memory
                             tag = new_tags_neighborhood[i]
                             context = new_context_neighborhood[i]
                             memorytmp_idx = indices[i]
-                            
-                            # Check if index is valid
-                            if memorytmp_idx >= 0 and memorytmp_idx < len(noteslist):
-                                notetmp = noteslist[memorytmp_idx]
-                                # add tag to memory
-                                notetmp.tags = tag
-                                notetmp.context = context
-                                self.memories[notes_id[memorytmp_idx]] = notetmp
-                            else:
-                                logger.warning(f"Invalid memory index {memorytmp_idx}")
+                            notetmp = noteslist[memorytmp_idx]
+                            # add tag to memory
+                            notetmp.tags = tag
+                            notetmp.context = context
+                            self.memories[notes_id[memorytmp_idx]] = notetmp
             return should_evolve
             
         except (json.JSONDecodeError, KeyError, Exception) as e:

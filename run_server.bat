@@ -1,15 +1,22 @@
 @echo off
-cd /d D:\MCP\A-mem
 echo Starting A-MEM MCP Server...
-echo.
-echo Make sure you've configured your OpenAI API key in the .env file!
-echo Current directory: %CD%
-echo.
-echo Checking dependencies...
-C:\Users\zsun2\AppData\Local\Programs\Python\Python312\python.exe -c "import sys; print('Python version:', sys.version)"
-C:\Users\zsun2\AppData\Local\Programs\Python\Python312\python.exe -c "import fastapi, uvicorn; print('FastAPI version:', fastapi.__version__, 'Uvicorn version:', uvicorn.__version__)"
-echo.
-echo Starting server with debug output...
-C:\Users\zsun2\AppData\Local\Programs\Python\Python312\python.exe -m uvicorn server:app --host 0.0.0.0 --port 8000 --log-level debug
 
-pause
+:: Activate virtual environment
+call .venv\Scripts\activate
+
+:: Check if .env exists
+if not exist .env (
+    echo Creating default .env file...
+    echo OPENAI_API_KEY=your_api_key_here > .env
+    echo MODEL_NAME=all-MiniLM-L6-v2 >> .env
+    echo LLM_BACKEND=openai >> .env
+    echo LLM_MODEL=gpt-4 >> .env
+    echo.
+    echo ⚠️ Please edit the .env file to set your OpenAI API key!
+    pause
+    exit /b
+)
+
+:: Start the server with detailed logging
+echo Starting server...
+python -m uvicorn server:app --host 0.0.0.0 --port 8000 --log-level debug

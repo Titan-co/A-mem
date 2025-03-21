@@ -14,8 +14,18 @@ def check_file_syntax(filepath):
 
 def check_file_imports(filepath):
     print(f"Checking imports in {filepath}")
-    with open(filepath, 'r') as f:
-        content = f.read()
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except UnicodeDecodeError:
+        try:
+            # Try alternative encoding if UTF-8 fails
+            with open(filepath, 'r', encoding='latin-1') as f:
+                content = f.read()
+            print(f"✓ File opened with latin-1 encoding")
+        except Exception as e:
+            print(f"✗ Cannot read file with any encoding: {e}")
+            return False
     
     import_lines = [line.strip() for line in content.split('\n') if line.strip().startswith('import ') or line.strip().startswith('from ')]
     

@@ -24,6 +24,7 @@ class OpenAIController(BaseLLMController):
             client_kwargs = {"api_key": api_key}
             if api_base and api_base.strip():
                 client_kwargs["base_url"] = api_base
+                print(f"Using custom API base URL: {api_base}")
                 
             self.client = OpenAI(**client_kwargs)
         except ImportError:
@@ -61,18 +62,21 @@ class OllamaController(BaseLLMController):
         return None
 
     def _generate_empty_response(self, response_format: dict) -> dict:
-        if "json_schema" not in response_format:
+        """Generate an empty response based on the response format"""
+        if response_format.get("type") == "json_object":
             return {}
             
-        schema = response_format["json_schema"]["schema"]
-        result = {}
-        
-        if "properties" in schema:
-            for prop_name, prop_schema in schema["properties"].items():
-                result[prop_name] = self._generate_empty_value(prop_schema["type"], 
-                                                            prop_schema.get("items"))
-        
-        return result
+        # Fallback for older json_schema format
+        if "json_schema" in response_format:
+            schema = response_format["json_schema"]["schema"]
+            result = {}
+            
+            if "properties" in schema:
+                for prop_name, prop_schema in schema["properties"].items():
+                    result[prop_name] = self._generate_empty_value(prop_schema["type"], 
+                                                                prop_schema.get("items"))
+            
+        return {}
 
     def get_completion(self, prompt: str, response_format: dict, temperature: float = 0.7) -> str:
         try:
