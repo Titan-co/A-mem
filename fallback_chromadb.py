@@ -21,14 +21,14 @@ class SkipEmbeddingFunction:
         self.dimension = dimension
         logger.info(f"Initialized skip embedding function with dimension {dimension}")
         
-    def __call__(self, texts: List[str]) -> List[List[float]]:
+    def __call__(self, input: List[str]) -> List[List[float]]:
         """Return random vectors for each text"""
-        if not texts:
+        if not input:
             return []
             
         # Return random vectors with a seed based on the text to ensure consistency
         embeddings = []
-        for text in texts:
+        for text in input:
             # Use a simple hash of the text as a seed
             seed = sum(ord(c) for c in text)
             np.random.seed(seed)

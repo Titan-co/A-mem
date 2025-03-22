@@ -58,23 +58,23 @@ class LocalCacheEmbeddingFunction:
             logger.info("Will use fallback embedding function")
             self.model = None
     
-    def __call__(self, texts: List[str]) -> List[List[float]]:
+    def __call__(self, input: List[str]) -> List[List[float]]:
         """Generate embeddings for the given texts
         
         Args:
-            texts: List of texts to embed
+            input: List of texts to embed
             
         Returns:
             List of embeddings
         """
-        if not texts:
+        if not input:
             return []
         
         # Use model if available
         if self.model:
             try:
                 # Create embeddings
-                embeddings = self.model.encode(texts, normalize_embeddings=self.normalize)
+                embeddings = self.model.encode(input, normalize_embeddings=self.normalize)
                 return embeddings.tolist()
             except Exception as e:
                 logger.error(f"Error generating embeddings: {e}")
@@ -83,7 +83,7 @@ class LocalCacheEmbeddingFunction:
         # Simple fallback embedding if model isn't available or fails
         logger.warning("Using fallback embedding function")
         embeddings = []
-        for text in texts:
+        for text in input:
             # Simple checksum-based embedding (not semantic but provides consistent vectors)
             embedding = [0.0] * 384  # Match dimension of the default model
             for i, char in enumerate(text):
