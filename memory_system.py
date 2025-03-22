@@ -1,3 +1,72 @@
+def strip_markdown_code_fences(text):
+    """Strip Markdown code fences from text to extract raw JSON.
+    
+    Some API providers (like OpenRouter) wrap JSON in ```json ... ``` blocks
+    or with backticks like `json { ... }`. This function extracts the JSON content.
+    
+    Args:
+        text (str): Text that might contain Markdown-wrapped JSON
+        
+    Returns:
+        str: Cleaned text with code fences removed
+    """
+    if not text:
+        return text
+    
+    # Make a copy of the original text for later fallback if needed
+    original_text = text
+    text = text.strip()
+    
+    # Case 1: JSON wrapped in triple backticks (```json ... ```)
+    if text.startswith('```'):
+        # Find the end of the opening fence line
+        first_newline = text.find('\n')
+        if first_newline == -1:
+            # Special case: single line with triple backticks
+            # Like: ```json {...}```
+            # Extract content by removing the opening and closing fences
+            opening_marker = '```json'
+            # Check if it has `json` or just ```
+            if text.startswith(opening_marker):
+                text = text[len(opening_marker):]
+            else:  
+                # Just starts with ```
+                text = text[3:]
+            
+            # Remove closing backticks
+            if text.endswith('```'):
+                text = text[:-3]
+                
+            return text.strip()
+        
+        # Handle normal multiline case
+        # Find the closing fence
+        closing_fence = text.rfind('```')
+        if closing_fence <= first_newline:
+            return text  # No closing fence or it's before the first newline
+            
+        # Extract the content between the fences
+        content = text[first_newline + 1:closing_fence].strip()
+        return content
+    
+    # Case 2: JSON wrapped in single backticks (`json {...}`) or double backticks
+    for prefix in ['`json', '``json', '`', '``']:
+        if text.startswith(prefix):
+            # Remove the opening marker
+            text = text[len(prefix):]
+            
+            # Remove closing backticks
+            for suffix in ['`', '``']:
+                if text.endswith(suffix):
+                    text = text[:-len(suffix)]
+                    break
+            
+            return text.strip()
+    
+    # Case 3: Try to find JSON-like structure in the text
+    # If we got here, return the original text as a last resort
+    return text
+
 import keyword
 from typing import List, Dict, Optional, Any
 import uuid
@@ -136,6 +205,58 @@ class AgenticMemorySystem:
                                 }}
                                 '''
         
+    def _extract_best_json(self, text: str) -> Dict:
+        """Extract the best JSON object from text, trying multiple approaches.
+        
+        Args:
+            text: Text potentially containing JSON
+            
+        Returns:
+            Dict: Extracted JSON object or default empty values
+        """
+        # Default response if all approaches fail
+        default_response = {
+            "keywords": ["auto-generated"],
+            "context": "General",
+            "tags": ["auto-tagged"]
+        }
+        
+        # Try direct parsing first
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            pass
+            
+        # Try regex approaches - from most to least specific
+        import re
+        # Pattern for complete JSON object with attributes
+        patterns = [
+            r'\{\s*"keywords"\s*:\s*\[[^\]]*\]\s*,\s*"context"\s*:\s*"[^"]*"\s*,\s*"tags"\s*:\s*\[[^\]]*\]\s*\}',
+            r'\{\s*"[^"]*"\s*:\s*(?:\[[^\]]*\]|"[^"]*")(?:\s*,\s*"[^"]*"\s*:\s*(?:\[[^\]]*\]|"[^"]*"))*\s*\}',
+            r'\{[^\{\}]*\}',  # Simple JSON object without nested objects
+            r'\{[\s\S]*?\}'   # Any JSON-like structure (most permissive)
+        ]
+        
+        for pattern in patterns:
+            matches = re.findall(pattern, text)
+            for match in matches:
+                try:
+                    return json.loads(match)
+                except json.JSONDecodeError:
+                    continue
+        
+        # Last resort: Try to extract arrays for keywords and tags
+        keywords = re.findall(r'\[\s*(?:"[^"]*"\s*(?:,\s*"[^"]*"\s*)*)\]', text)
+        if keywords:
+            try:
+                keyword_list = json.loads(keywords[0])
+                default_response["keywords"] = keyword_list
+            except:
+                pass
+                
+        # If we got here, extraction failed - use the default
+        return default_response
+
     def analyze_content(self, content: str) -> Dict:            
         """Analyze content using LLM to extract semantic metadata.
         
@@ -179,14 +300,29 @@ class AgenticMemorySystem:
                 ]
             }
 
+            IMPORTANT: Return ONLY the JSON object with no other text or formatting.
+
             Content for analysis:
             """ + content
         try:
             response = self.llm_controller.llm.get_completion(prompt, response_format={"type": "json_object"}, temperature=0.7)
-            return json.loads(response)
+            
+            # Strip any Markdown code fences from the response
+            cleaned_response = strip_markdown_code_fences(response)
+            
+            # Try to extract valid JSON using multiple approaches
+            return self._extract_best_json(cleaned_response)
+            
         except Exception as e:
-            print(f"Error analyzing content: {e}")
-            return {"keywords": [], "context": "General", "tags": []}
+            logger.error(f"Error analyzing content: {e}")
+            # Return basic valid values when all else fails
+            simple_words = content.split()[:10]  # Use first 10 words as basic keywords
+            keywords = [w for w in simple_words if len(w) > 3][:5]  # Filter to longer words
+            return {
+                "keywords": keywords if keywords else ["auto-generated"],
+                "context": "General content analysis",
+                "tags": ["auto-tagged", "text-content"]
+            }
 
     def create(self, content: str, **kwargs) -> str:
         """Create a new memory note.
@@ -455,23 +591,95 @@ class AgenticMemorySystem:
             nearest_neighbors_memories=neighbors_text
         )
         
+        # Add an explicit instruction to avoid Markdown formatting
+        prompt += "\n\nIMPORTANT: Return ONLY the JSON object with no Markdown formatting, code blocks, or backticks."
+        
         response = self.llm_controller.llm.get_completion(
             prompt,response_format={"type": "json_object"}
         )
         try:
-            response_json = json.loads(response)
-            should_evolve = response_json["should_evolve"]
+            # Strip any Markdown code fences from the response
+            cleaned_response = strip_markdown_code_fences(response)
+            
+            # Try to extract JSON using our enhanced method
+            default_evolution = {
+                "should_evolve": False,
+                "actions": [],
+                "suggested_connections": [],
+                "tags_to_update": [],
+                "new_context_neighborhood": [],
+                "new_tags_neighborhood": []
+            }
+            
+            # First try to parse as is
+            try:
+                response_json = json.loads(cleaned_response)
+            except json.JSONDecodeError as e:
+                logger.warning(f"Initial JSON parse failed in evolution: {e}")
+                logger.debug(f"Cleaned response: {cleaned_response}")
+                
+                # Try more aggressive extraction with regex
+                import re
+                # Look for the entire evolution JSON structure
+                patterns = [
+                    r'\{\s*"should_evolve"\s*:.*?\}',  # Find the entire evolution JSON
+                    r'\{[\s\S]*?"should_evolve"[\s\S]*?\}',  # More permissive pattern
+                    r'\{[\s\S]*?\}'  # Most permissive - any JSON-like structure
+                ]
+                
+                for pattern in patterns:
+                    match = re.search(pattern, cleaned_response)
+                    if match:
+                        try:
+                            response_json = json.loads(match.group(0))
+                            # Check if it has the required fields
+                            if "should_evolve" in response_json:
+                                break
+                        except json.JSONDecodeError:
+                            continue
+                else:  # No break occurred in the for loop
+                    logger.error("Could not extract valid JSON from LLM response")
+                    # Use default response that doesn't trigger evolution
+                    response_json = default_evolution
+            # Get the evolution decision, with safe fallback
+            should_evolve = response_json.get("should_evolve", False)
+            # Convert string "True"/"False" to boolean if needed
+            if isinstance(should_evolve, str):
+                should_evolve = should_evolve.lower() == "true"
+                
             if should_evolve:
-                actions = response_json["actions"]
+                # Get actions with safe fallback
+                actions = response_json.get("actions", [])
+                if not isinstance(actions, list):
+                    actions = [actions] if actions else []
+                    
                 for action in actions:
                     if action == "strengthen":
-                        suggest_connections = response_json["suggested_connections"]
-                        new_tags = response_json["tags_to_update"]
+                        # Get values with safe fallbacks
+                        suggest_connections = response_json.get("suggested_connections", [])
+                        new_tags = response_json.get("tags_to_update", [])
+                        
+                        # Ensure they're lists
+                        if not isinstance(suggest_connections, list):
+                            suggest_connections = [suggest_connections] if suggest_connections else []
+                        if not isinstance(new_tags, list):
+                            new_tags = [new_tags] if new_tags else []
+                            
+                        # Update the memory
                         note.links.extend(suggest_connections)
                         note.tags = new_tags
+                        
                     elif action == "update_neighbor":
-                        new_context_neighborhood = response_json["new_context_neighborhood"]
-                        new_tags_neighborhood = response_json["new_tags_neighborhood"]
+                        # Get values with safe fallbacks
+                        new_context_neighborhood = response_json.get("new_context_neighborhood", [])
+                        new_tags_neighborhood = response_json.get("new_tags_neighborhood", [])
+                        
+                        # Ensure they're lists
+                        if not isinstance(new_context_neighborhood, list):
+                            new_context_neighborhood = [new_context_neighborhood] if new_context_neighborhood else []
+                        if not isinstance(new_tags_neighborhood, list):
+                            new_tags_neighborhood = [new_tags_neighborhood] if new_tags_neighborhood else []
+                        
                         noteslist = list(self.memories.values())
                         notes_id = list(self.memories.keys())
                         
@@ -493,15 +701,17 @@ class AgenticMemorySystem:
                         
                         for i in range(max_updates):
                             # find some memory
-                            tag = new_tags_neighborhood[i]
+                            tags = new_tags_neighborhood[i]
                             context = new_context_neighborhood[i]
                             memorytmp_idx = indices[i]
                             
                             # Check if index is valid
                             if memorytmp_idx >= 0 and memorytmp_idx < len(noteslist):
                                 notetmp = noteslist[memorytmp_idx]
-                                # add tag to memory
-                                notetmp.tags = tag
+                                # add tag to memory - ensure tags is a list
+                                if not isinstance(tags, list):
+                                    tags = [tags] if tags else []
+                                notetmp.tags = tags
                                 notetmp.context = context
                                 self.memories[notes_id[memorytmp_idx]] = notetmp
                             else:

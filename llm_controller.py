@@ -27,21 +27,50 @@ class OpenAIController(BaseLLMController):
                 print(f"Using custom API base URL: {api_base}")
                 
             self.client = OpenAI(**client_kwargs)
+            # Store the API base for future reference
+            self.using_custom_api = bool(api_base and api_base.strip())
         except ImportError:
             raise ImportError("OpenAI package not found. Install it with: pip install openai")
     
     def get_completion(self, prompt: str, response_format: dict, temperature: float = 0.7) -> str:
-        response = self.client.chat.completions.create(
-            model=self.model,
-            messages=[
-                {"role": "system", "content": "You must respond with a JSON object."},
-                {"role": "user", "content": prompt}
-            ],
-            response_format=response_format,
-            temperature=temperature,
-            max_tokens=1000
-        )
-        return response.choices[0].message.content
+        try:
+            # For custom API endpoints, we might need to use a different approach
+            # Some providers don't fully support response_format, so add explicit instructions
+            system_message = "You must respond with a JSON object."
+            if self.using_custom_api:
+                system_message += " Return only the raw JSON with no Markdown formatting, no code blocks, and no backticks."
+            
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": prompt}
+                ],
+                response_format=response_format,
+                temperature=temperature,
+                max_tokens=1000
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            # If response_format causes issues with some providers, try without it
+            if self.using_custom_api:
+                print(f"Error with response_format: {e}. Trying without it...")
+                try:
+                    response = self.client.chat.completions.create(
+                        model=self.model,
+                        messages=[
+                            {"role": "system", "content": "You must respond with a raw JSON object. No Markdown formatting, no code blocks, no backticks."},
+                            {"role": "user", "content": prompt + "\n\nIMPORTANT: Return only the raw JSON with no Markdown formatting or code blocks."}
+                        ],
+                        temperature=temperature,
+                        max_tokens=1000
+                    )
+                    return response.choices[0].message.content
+                except Exception as inner_e:
+                    print(f"Also failed without response_format: {inner_e}")
+                    raise
+            else:
+                raise
 
 class OllamaController(BaseLLMController):
     def __init__(self, model: str = "llama2"):
@@ -77,19 +106,40 @@ class OllamaController(BaseLLMController):
                                                                 prop_schema.get("items"))
             
         return {}
+        
+    def _clean_response(self, response: str) -> str:
+        """Clean the response text by removing Markdown formatting.
+        
+        Args:
+            response: Raw response from LLM
+            
+        Returns:
+            Cleaned response text
+        """
+        # Import here to avoid circular imports
+        from memory_system import strip_markdown_code_fences
+        return strip_markdown_code_fences(response)
 
     def get_completion(self, prompt: str, response_format: dict, temperature: float = 0.7) -> str:
         try:
+            # Add explicit instructions to avoid Markdown
+            enhanced_prompt = prompt + "\n\nRETURN RAW JSON ONLY. NO MARKDOWN CODE BLOCKS OR BACKTICKS."
+            
             response = completion(
                 model="ollama_chat/{}".format(self.model),
                 messages=[
-                    {"role": "system", "content": "You must respond with a JSON object."},
-                    {"role": "user", "content": prompt}
+                    {"role": "system", "content": "You must respond with a JSON object. Do not use Markdown formatting, code blocks, or backticks in your response."},
+                    {"role": "user", "content": enhanced_prompt}
                 ],
                 response_format=response_format,
             )
-            return response.choices[0].message.content
+            
+            # Clean response to remove any Markdown or code fences
+            raw_response = response.choices[0].message.content
+            return self._clean_response(raw_response)
         except Exception as e:
+            print(f"Error in OllamaController: {e}")
+            # Try to generate a default response
             empty_response = self._generate_empty_response(response_format)
             return json.dumps(empty_response)
 
