@@ -15,3 +15,138 @@
 2025-03-23 00:03:25,913 - connector_mcp - INFO - A-MEM server is up and running!
 2025-03-23 00:03:25,914 - connector_mcp - INFO - A-MEM server found, starting MCP handler
 2025-03-23 00:03:25,915 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 00:21:05,732 - connector_mcp - INFO - Received keyboard interrupt, shutting down
+2025-03-23 00:24:06,838 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 00:24:06,838 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 00:24:06,842 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 00:24:06,842 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 00:24:06,846 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 00:24:07,104 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:08,105 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:09,108 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:10,115 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:11,121 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:12,124 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:13,131 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:14,133 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:15,139 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:16,141 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:17,143 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:18,145 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:19,147 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:20,148 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:24:21,150 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:28:29,237 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 00:28:29,238 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 00:28:46,029 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 00:28:46,030 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 00:28:46,030 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 00:28:46,291 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:28:47,293 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:28:48,300 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:28:49,306 - connector_mcp - ERROR - Error in handle_mcp: [WinError 10038] An operation was attempted on something that is not a socket
+Traceback (most recent call last):
+  File "D:\MCP\A-mem\connector_mcp_wrapper.py", line 80, in handle_mcp
+    ready, _, _ = select.select([sys.stdin], [], [], 0.1)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+2025-03-23 00:32:41,246 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 00:32:41,246 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 00:32:57,479 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 00:32:57,481 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 00:32:57,482 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 00:38:10,304 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 00:38:10,304 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 00:38:17,942 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 00:38:17,944 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 00:38:17,946 - connector_mcp - INFO - Starting MCP handler
