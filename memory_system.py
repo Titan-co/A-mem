@@ -275,6 +275,34 @@ class AgenticMemorySystem:
                 - context: str
                 - tags: List[str]
         """
+        # First, handle empty or very short content
+        if not content or len(content) < 10:
+            logger.warning(f"Content too short to analyze: {content}")
+            return {
+                "keywords": ["auto-generated"],
+                "context": "Short content",
+                "tags": ["auto-tagged", "short-content"]
+            }
+            
+        # Limit content length to avoid exceeding token limits
+        max_content_length = 1000  # Set reasonable limit
+        truncated_content = content[:max_content_length] if len(content) > max_content_length else content
+        
+        # Simple extraction for basic keywords (as a fallback)
+        simple_words = content.split()[:10]  # Use first 10 words as basic keywords
+        fallback_keywords = [w for w in simple_words if len(w) > 3][:5]  # Filter to longer words
+        fallback_result = {
+            "keywords": fallback_keywords if fallback_keywords else ["auto-generated"],
+            "context": "General content analysis",
+            "tags": ["auto-tagged", "text-content"]
+        }
+        
+        # If DISABLE_LLM is set in environment, use fallback directly
+        if os.getenv("DISABLE_LLM", "false").lower() in ("true", "1", "t"):
+            logger.info("LLM disabled, using fallback analysis")
+            return fallback_result
+            
+        # Standard prompt for analysis
         prompt = """Generate a structured analysis of the following content by:
             1. Identifying the most salient keywords (focus on nouns, verbs, and key concepts)
             2. Extracting core themes and contextual elements
@@ -304,26 +332,67 @@ class AgenticMemorySystem:
             IMPORTANT: Return ONLY the JSON object with no other text or formatting.
 
             Content for analysis:
-            """ + content
+            """ + truncated_content
         try:
-            response = self.llm_controller.llm.get_completion(prompt, response_format={"type": "json_object"}, temperature=0.7)
+            # Add timeout handling in case LLM takes too long
+            import threading
+            import time
             
+            result = [None]
+            error = [None]
+            
+            def call_llm():
+                try:
+                    response = self.llm_controller.llm.get_completion(
+                        prompt, 
+                        response_format={"type": "json_object"}, 
+                        temperature=0.7
+                    )
+                    result[0] = response
+                except Exception as e:
+                    error[0] = e
+            
+            # Use a timeout of 10 seconds to prevent hanging
+            thread = threading.Thread(target=call_llm)
+            thread.daemon = True
+            thread.start()
+            thread.join(10)  # 10 second timeout
+            
+            if thread.is_alive() or error[0] is not None:
+                # Timeout occurred or there was an error
+                logger.warning(f"LLM timeout or error: {error[0]}")
+                return fallback_result
+                
+            if not result[0]:
+                logger.warning("Empty LLM response, using fallback")
+                return fallback_result
+                
             # Strip any Markdown code fences from the response
-            cleaned_response = strip_markdown_code_fences(response)
+            cleaned_response = strip_markdown_code_fences(result[0])
             
             # Try to extract valid JSON using multiple approaches
-            return self._extract_best_json(cleaned_response)
+            extracted_result = self._extract_best_json(cleaned_response)
+            
+            # Validate the result has required fields
+            if not all(key in extracted_result for key in ["keywords", "context", "tags"]):
+                logger.warning(f"Missing fields in LLM response: {extracted_result}")
+                # Fill in missing fields from fallback
+                for key in ["keywords", "context", "tags"]:
+                    if key not in extracted_result or not extracted_result[key]:
+                        extracted_result[key] = fallback_result[key]
+                        
+            # Ensure keywords and tags are lists
+            if not isinstance(extracted_result["keywords"], list):
+                extracted_result["keywords"] = [extracted_result["keywords"]] if extracted_result["keywords"] else fallback_result["keywords"]
+                
+            if not isinstance(extracted_result["tags"], list):
+                extracted_result["tags"] = [extracted_result["tags"]] if extracted_result["tags"] else fallback_result["tags"]
+                
+            return extracted_result
             
         except Exception as e:
             logger.error(f"Error analyzing content: {e}")
-            # Return basic valid values when all else fails
-            simple_words = content.split()[:10]  # Use first 10 words as basic keywords
-            keywords = [w for w in simple_words if len(w) > 3][:5]  # Filter to longer words
-            return {
-                "keywords": keywords if keywords else ["auto-generated"],
-                "context": "General content analysis",
-                "tags": ["auto-tagged", "text-content"]
-            }
+            return fallback_result
 
     def create(self, content: str, **kwargs) -> str:
         """Create a new memory note.
