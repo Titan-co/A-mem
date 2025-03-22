@@ -43,7 +43,7 @@ def start_server():
     return server_process
 
 # Check if the server is up and running
-def wait_for_server(port=None, timeout=10):
+def wait_for_server(port=None, timeout=100):
     if port is None:
         port = os.getenv("PORT", "8765")
     logger.info(f"Waiting for server to start on port {port}")

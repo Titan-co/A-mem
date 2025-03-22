@@ -1,0 +1,32 @@
+2025-03-22 23:15:27,299 - simple_mcp - INFO - Simple MCP wrapper starting...
+2025-03-22 23:15:27,299 - simple_mcp - INFO - Starting fallback server on port 8903
+2025-03-22 23:15:27,303 - simple_mcp - INFO - Waiting for server to start on port 8903
+2025-03-22 23:15:28,326 - simple_mcp - INFO - Server is up and running!
+2025-03-22 23:15:28,327 - simple_mcp - INFO - Server started successfully, starting MCP handler
+2025-03-22 23:15:28,327 - simple_mcp - INFO - Starting MCP handler
+2025-03-22 23:16:00,874 - simple_mcp - INFO - Received keyboard interrupt, shutting down
+2025-03-22 23:16:00,875 - simple_mcp - INFO - Terminating server process
+2025-03-22 23:16:11,217 - simple_mcp - INFO - Simple MCP wrapper starting...
+2025-03-22 23:16:11,217 - simple_mcp - INFO - Starting fallback server on port 8903
+2025-03-22 23:16:11,222 - simple_mcp - INFO - Waiting for server to start on port 8903
+2025-03-22 23:16:12,248 - simple_mcp - INFO - Server is up and running!
+2025-03-22 23:16:12,248 - simple_mcp - INFO - Server started successfully, starting MCP handler
+2025-03-22 23:16:12,249 - simple_mcp - INFO - Starting MCP handler
+2025-03-22 23:16:33,949 - simple_mcp - INFO - Received keyboard interrupt, shutting down
+2025-03-22 23:16:33,950 - simple_mcp - INFO - Terminating server process
+2025-03-22 23:16:47,226 - simple_mcp - INFO - Simple MCP wrapper starting...
+2025-03-22 23:16:47,226 - simple_mcp - INFO - Starting fallback server on port 8903
+2025-03-22 23:16:47,230 - simple_mcp - INFO - Waiting for server to start on port 8903
+2025-03-22 23:16:48,260 - simple_mcp - INFO - Server is up and running!
+2025-03-22 23:16:48,260 - simple_mcp - INFO - Server started successfully, starting MCP handler
+2025-03-22 23:16:48,261 - simple_mcp - INFO - Starting MCP handler
+2025-03-22 23:17:27,424 - simple_mcp - INFO - Received keyboard interrupt, shutting down
+2025-03-22 23:17:27,425 - simple_mcp - INFO - Terminating server process
+2025-03-22 23:17:36,274 - simple_mcp - INFO - Simple MCP wrapper starting...
+2025-03-22 23:17:36,274 - simple_mcp - INFO - Starting fallback server on port 8903
+2025-03-22 23:17:36,278 - simple_mcp - INFO - Waiting for server to start on port 8903
+2025-03-22 23:17:37,288 - simple_mcp - INFO - Server is up and running!
+2025-03-22 23:17:37,289 - simple_mcp - INFO - Server started successfully, starting MCP handler
+2025-03-22 23:17:37,289 - simple_mcp - INFO - Starting MCP handler
+2025-03-22 23:19:12,302 - simple_mcp - INFO - Received keyboard interrupt, shutting down
+2025-03-22 23:19:12,303 - simple_mcp - INFO - Terminating server process

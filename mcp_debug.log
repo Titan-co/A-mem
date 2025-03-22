@@ -1,0 +1,18 @@
+2025-03-22 22:27:54,828 - mcp_wrapper - INFO - MCP wrapper starting...
+2025-03-22 22:27:54,828 - mcp_wrapper - INFO - Starting web server on port 8903
+2025-03-22 22:27:54,832 - mcp_wrapper - INFO - Waiting for server to start on port 8903
+2025-03-22 22:28:04,841 - mcp_wrapper - ERROR - Server failed to start within 10 seconds
+2025-03-22 22:28:04,841 - mcp_wrapper - ERROR - Server failed to start, exiting
+2025-03-22 22:28:04,841 - mcp_wrapper - INFO - Terminating server process
+2025-03-22 22:59:18,226 - mcp_wrapper - INFO - MCP wrapper starting...
+2025-03-22 22:59:18,227 - mcp_wrapper - INFO - Starting web server on port 8903
+2025-03-22 22:59:18,232 - mcp_wrapper - INFO - Waiting for server to start on port 8903
+2025-03-22 23:00:58,326 - mcp_wrapper - ERROR - Server failed to start within 100 seconds
+2025-03-22 23:00:58,327 - mcp_wrapper - ERROR - Server failed to start, exiting
+2025-03-22 23:00:58,328 - mcp_wrapper - INFO - Terminating server process
+2025-03-22 23:03:44,472 - mcp_wrapper - INFO - MCP wrapper starting...
+2025-03-22 23:03:44,473 - mcp_wrapper - INFO - Starting web server on port 8903
+2025-03-22 23:03:44,479 - mcp_wrapper - INFO - Waiting for server to start on port 8903
+2025-03-22 23:03:46,571 - mcp_wrapper - INFO - MCP wrapper starting...
+2025-03-22 23:03:46,572 - mcp_wrapper - INFO - Starting web server on port 8903
+2025-03-22 23:03:46,583 - mcp_wrapper - INFO - Waiting for server to start on port 8903
