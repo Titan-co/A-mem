@@ -14,26 +14,45 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Get port from environment or use default
-PORT = os.getenv("PORT", "8765")
+PORT = os.getenv("PORT", "8767")
+print(f"Using port from environment: {PORT}")
 
 def simulate_mcp_protocol():
     """Simulate MCP protocol interactions for testing"""
     print("=" * 50)
     print("A-MEM MCP Integration Tester")
     print("=" * 50)
-    print("This script tests integration between MCP and A-MEM")
-    print("Ensure the simple_server.py is running on port 8765")
+    print(f"This script tests integration between MCP and A-MEM")
+    print(f"Ensure the simple_server.py is running on port {PORT}")
     print()
     
-    # Check if server is running
-    try:
-        response = requests.get(f"http://localhost:{PORT}/health")
-        if response.status_code != 200:
-            print("ERROR: Server is not responding correctly")
-            return False
-        print("✓ Server is running and responsive")
-    except Exception as e:
-        print(f"ERROR: Server is not running: {e}")
+    # Check if server is running with retry
+    max_retries = 3
+    retry_count = 0
+    retry_delay = 2  # seconds
+    
+    while retry_count < max_retries:
+        try:
+            print(f"Attempt {retry_count + 1}/{max_retries} to connect to server...")
+            response = requests.get(f"http://localhost:{PORT}/health")
+            if response.status_code == 200:
+                print("✓ Server is running and responsive")
+                break
+            else:
+                print(f"Server responded with status code {response.status_code}")
+                retry_count += 1
+                if retry_count < max_retries:
+                    print(f"Waiting {retry_delay} seconds before retry...")
+                    time.sleep(retry_delay)
+        except Exception as e:
+            print(f"Connection attempt {retry_count + 1} failed: {e}")
+            retry_count += 1
+            if retry_count < max_retries:
+                print(f"Waiting {retry_delay} seconds before retry...")
+                time.sleep(retry_delay)
+    
+    if retry_count >= max_retries:
+        print(f"ERROR: Server is not responding after {max_retries} attempts")
         return False
     
     # Test initialize

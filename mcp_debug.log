@@ -69,3 +69,9 @@
 2025-03-22 15:03:46,948 - mcp_wrapper - INFO - Starting MCP handler
 2025-03-22 15:03:56,665 - mcp_wrapper - INFO - Received keyboard interrupt, shutting down
 2025-03-22 15:03:56,665 - mcp_wrapper - INFO - Terminating server process
+2025-03-22 15:43:59,711 - mcp_wrapper - INFO - MCP wrapper starting...
+2025-03-22 15:43:59,712 - mcp_wrapper - INFO - Starting web server on port 8799
+2025-03-22 15:43:59,716 - mcp_wrapper - INFO - Waiting for server to start on port 8799
+2025-03-22 15:44:09,726 - mcp_wrapper - ERROR - Server failed to start within 10 seconds
+2025-03-22 15:44:09,726 - mcp_wrapper - ERROR - Server failed to start, exiting
+2025-03-22 15:44:09,727 - mcp_wrapper - INFO - Terminating server process

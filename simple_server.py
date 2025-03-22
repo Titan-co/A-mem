@@ -11,27 +11,40 @@ import uvicorn
 try:
     from memory_system import AgenticMemorySystem, strip_markdown_code_fences
     from config import settings
+    from dotenv import load_dotenv
+    import os
+    
+    # Load environment variables
+    load_dotenv()
+    
+    # Check if ChromaDB should be disabled
+    disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
     
     # Initialize the memory system
     try:
-        print("Initializing AgenticMemorySystem...", file=sys.stderr)
-        memory_system = AgenticMemorySystem(
-            model_name=settings.MODEL_NAME,
-            llm_backend=settings.LLM_BACKEND,
-            llm_model=settings.LLM_MODEL,
-            evo_threshold=settings.EVO_THRESHOLD,
-            api_key=settings.API_KEY,
-            api_base=settings.API_URL
-        )
-        print("Memory system initialized successfully!", file=sys.stderr)
+        # Initialize the memory system
+        if disable_chromadb:
+            print("ChromaDB disabled, using fallback implementation", file=sys.stderr)
+            memory_system = None
+        else:
+            memory_system = AgenticMemorySystem(
+                model_name=settings.MODEL_NAME,
+                llm_backend=settings.LLM_BACKEND,
+                llm_model=settings.LLM_MODEL,
+                evo_threshold=settings.EVO_THRESHOLD,
+                api_key=settings.API_KEY,
+                api_base=settings.API_URL
+            )
+            print("Memory system initialized successfully!", file=sys.stderr)
         
         # Disable memory evolution to keep things simple
-        def mock_evolution(note):
-            print("Memory evolution disabled for MCP server", file=sys.stderr)
-            return False
-            
-        # Replace the original method with our mock
-        memory_system._process_memory_evolution = mock_evolution
+        if memory_system is not None:
+            def mock_evolution(note):
+                print("Memory evolution disabled for MCP server", file=sys.stderr)
+                return False
+                
+            # Replace the original method with our mock
+            memory_system._process_memory_evolution = mock_evolution
         
     except Exception as e:
         print(f"Error initializing memory system: {e}", file=sys.stderr)
@@ -47,13 +60,13 @@ memories_db = {}
 
 app = FastAPI()
 
-# Enable CORS
+# Enable CORS with manual settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
 )
 
 # API Endpoints
@@ -395,6 +408,7 @@ if __name__ == "__main__":
         
         # Get port from environment or use default
         port = int(os.getenv("PORT", 8765))
+        print(f"Using port from environment: {port}", file=sys.stderr)
         
         # Start the server
         print(f"Starting uvicorn server on port {port}", file=sys.stderr)

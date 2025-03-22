@@ -10,12 +10,24 @@ import pickle
 from nltk.tokenize import word_tokenize
 import os
 
+# Create a project-specific cache directory
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+CACHE_DIR = os.path.join(PROJECT_DIR, ".cache")
+os.makedirs(CACHE_DIR, exist_ok=True)
+
+# Set environment variable for ChromaDB
+os.environ["CHROMADB_CACHE_DIR"] = CACHE_DIR
+
 def simple_tokenize(text):
     return word_tokenize(text)
 
 class SimpleEmbeddingRetriever:
     """Simple retriever using sentence embeddings"""
     def __init__(self, model_name: str = 'all-MiniLM-L6-v2'):
+        # Set cache directory for sentence-transformers
+        os.environ["SENTENCE_TRANSFORMERS_HOME"] = os.path.join(CACHE_DIR, "sentence_transformers")
+        os.environ["TRANSFORMERS_CACHE"] = os.path.join(CACHE_DIR, "transformers")
+        
         self.model = SentenceTransformer(model_name)
         self.documents = []
         self.embeddings = None
@@ -73,7 +85,24 @@ class ChromaRetriever:
         Args:
             collection_name: Name of the ChromaDB collection
         """
-        self.client = chromadb.Client(Settings(allow_reset=True))
+        try:
+            # First try using the new PersistentClient method
+            persist_dir = os.path.join(CACHE_DIR, "chromadb_data")
+            os.makedirs(persist_dir, exist_ok=True)
+            self.client = chromadb.PersistentClient(path=persist_dir)
+        except Exception as e:
+            print(f"Error using new ChromaDB client: {e}. Trying fallback approach...")
+            try:
+                # Fall back to older API if needed
+                self.client = chromadb.Client(Settings(
+                    allow_reset=True,
+                    persist_directory=persist_dir
+                ))
+            except Exception as e:
+                print(f"Error initializing ChromaDB: {e}. Using in-memory fallback.")
+                # Use in-memory client as last resort
+                self.client = chromadb.Client()
+                
         self.collection = self.client.get_or_create_collection(name=collection_name)
         
     def add_document(self, document: str, metadata: Dict, doc_id: str):

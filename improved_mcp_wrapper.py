@@ -21,8 +21,9 @@ logger = logging.getLogger("mcp_wrapper")
 
 # Start the web server in a separate thread
 def start_server():
-    logger.info("Starting web server on port 8765")
-    print("Starting web server on port 8765", file=sys.stderr)
+    port = os.getenv("PORT", "8765")
+    logger.info(f"Starting web server on port {port}")
+    print(f"Starting web server on port {port}", file=sys.stderr)
     sys.stderr.flush()
     
     server_process = subprocess.Popen(
@@ -34,7 +35,7 @@ def start_server():
             "--host",
             "0.0.0.0",
             "--port",
-            "8765"
+            port
         ],
         cwd=os.path.dirname(os.path.abspath(__file__)),
         stderr=subprocess.PIPE,  # Capture stderr to prevent it from mixing with stdout
@@ -42,7 +43,9 @@ def start_server():
     return server_process
 
 # Check if the server is up and running
-def wait_for_server(port=8765, timeout=10):
+def wait_for_server(port=None, timeout=10):
+    if port is None:
+        port = os.getenv("PORT", "8765")
     logger.info(f"Waiting for server to start on port {port}")
     print(f"Waiting for server to start on port {port}", file=sys.stderr)
     sys.stderr.flush()
@@ -79,7 +82,11 @@ def handle_mcp():
     load_dotenv()
     
     # Get port from environment or use default
-    port = os.getenv("PORT", "8765")
+    port = os.getenv("PORT", "8767")
+    logger.info(f"Using port for API server URL: {port}")
+    print(f"Using port for API server URL: {port}", file=sys.stderr)
+    sys.stderr.flush()
+    
     server_url = f"http://localhost:{port}/api/v1"
     print(f"Using server URL: {server_url}", file=sys.stderr)
     sys.stderr.flush()

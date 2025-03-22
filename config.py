@@ -16,11 +16,6 @@ class Settings(BaseSettings):
     PORT: int = int(os.environ.get("PORT", 8000))
     DEBUG: bool = os.environ.get("DEBUG", "False").lower() in ("true", "1", "t")
     
-    # CORS settings
-    CORS_ORIGINS: list = ["*"]
-    CORS_METHODS: list = ["*"]
-    CORS_HEADERS: list = ["*"]
-    
     # A-MEM settings
     MODEL_NAME: str = os.environ.get("MODEL_NAME", "all-MiniLM-L6-v2")
     LLM_BACKEND: str = os.environ.get("LLM_BACKEND", "openai")
@@ -31,6 +26,9 @@ class Settings(BaseSettings):
     
     # Default memory retrieval parameters
     DEFAULT_K: int = int(os.environ.get("DEFAULT_K", 5))
+    
+    # CORS settings - handled manually in server.py
+    # We don't define these as fields to avoid pydantic parsing issues
 
 # Create settings instance
 settings = Settings()

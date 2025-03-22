@@ -4,8 +4,17 @@ echo A-MEM MCP Server for Claude Desktop
 echo =====================================
 echo.
 
-:: Use fixed port that matches the MCP protocol requirements
-set API_PORT=8765
+rem Initialize cache directories
+echo Initializing cache directories...
+python initialize_cache.py
+echo.
+
+:: Get port from .env file or use default
+set API_PORT=8767
+for /f "tokens=1,* delims==" %%a in ('type .env ^| findstr /i "PORT="') do (
+  set API_PORT=%%b
+)
+echo Using port from .env: %API_PORT%
 
 :: Activate virtual environment if exists
 if exist .venv\Scripts\activate.bat (
@@ -72,8 +81,8 @@ if "%option%"=="1" (
   echo Starting API server in the background...
   start /b cmd /c "python -m uvicorn simple_server:app --host 0.0.0.0 --port %API_PORT% --log-level debug"
   
-  echo Waiting for server to start...
-  ping 127.0.0.1 -n 6 > nul
+  echo Waiting for server to start... (10 seconds)
+  ping 127.0.0.1 -n 11 > nul
   
   echo Running MCP integration test...
   echo.

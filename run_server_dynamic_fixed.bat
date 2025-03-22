@@ -1,17 +1,15 @@
-rem Initialize cache directories
-echo Initializing cache directories...
-python initialize_cache.py@echo off
+@echo off
 echo A-MEM MCP Server for Claude Desktop
 echo =====================================
+
+rem Activate virtual environment if it exists
+if exist .venv\Scripts\activate.bat (
+  call .venv\Scripts\activate.bat
+)
 
 rem Initialize cache directories
 echo Initializing cache directories...
 python initialize_cache.py
-
-rem Activate virtual environment if it exists
-if exist .venv\\Scripts\\activate.bat (
-  call .venv\\Scripts\\activate.bat
-)
 
 rem Extract PORT from .env file if it exists
 set PORT=8767
@@ -26,15 +24,15 @@ echo 2. Test the MCP integration locally first
 echo 3. Run the simple API server only (for debugging)
 echo 4. Exit
 
-set /p option=\"Enter option (1-4): \"
+set /p option="Enter option (1-4): "
 
-if \"%option%\"==\"1\" (
+if "%option%"=="1" (
   echo Starting MCP server for Claude Desktop...
   python improved_mcp_wrapper.py
   goto end
 )
 
-if \"%option%\"==\"2\" (
+if "%option%"=="2" (
   echo Starting API server in the background on port %PORT%...
   start /b cmd /c "python -m uvicorn simple_server:app --host 0.0.0.0 --port %PORT% --log-level debug"
   
@@ -50,7 +48,7 @@ if \"%option%\"==\"2\" (
   goto end
 )
 
-if \"%option%\"==\"3\" (
+if "%option%"=="3" (
   echo Starting simple API server...
   echo Access at http://localhost:%PORT%/
   echo Swagger docs at http://localhost:%PORT%/docs

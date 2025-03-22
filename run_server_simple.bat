@@ -6,7 +6,11 @@ if exist .venv\\Scripts\\activate.bat (
   call .venv\\Scripts\\activate.bat
 )
 
-set PORT=8765
+set PORT=8767
+for /f "tokens=1,* delims==" %%a in ('type .env ^| findstr /i "PORT="') do (
+  set PORT=%%b
+)
+echo Using port: %PORT%
 
 echo Choose an option:
 echo 1. Start the MCP server for Claude Desktop
@@ -23,11 +27,11 @@ if \"%option%\"==\"1\" (
 )
 
 if \"%option%\"==\"2\" (
-  echo Starting API server in the background...
-  start /b cmd /c python -m uvicorn simple_server:app --host 0.0.0.0 --port %PORT% --log-level debug
+  echo Starting API server in the background on port %PORT%...
+  start /b cmd /c "python -m uvicorn simple_server:app --host 0.0.0.0 --port %PORT% --log-level debug"
   
-  echo Waiting for server to start...
-  timeout /t 5 /nobreak > nul
+  echo Waiting for server to start... (10 seconds)
+  timeout /t 10 /nobreak > nul
   
   echo Running MCP integration test...
   python test_mcp_integration.py

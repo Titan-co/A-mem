@@ -1,7 +1,15 @@
 @echo off
 echo Starting improved MCP wrapper...
 echo.
-echo This will start a server on port 8765 and handle MCP protocol.
+
+rem Initialize cache directories
+echo Initializing cache directories...
+python initialize_cache.py
+set PORT=8767
+for /f "tokens=1,* delims==" %%a in ('type .env ^| findstr /i "PORT="') do (
+  set PORT=%%b
+)
+echo This will start a server on port %PORT% and handle MCP protocol.
 echo Press Ctrl+C to stop the server when done.
 echo.
 
@@ -14,6 +22,9 @@ if exist .venv\Scripts\activate.bat (
 
 :: Set Python path explicitly if needed
 set PYTHONPATH=%CD%
+
+:: Set environment variable for the MCP wrapper to use
+set "PORT=%PORT%"
 
 :: Run the improved MCP wrapper
 python improved_mcp_wrapper.py

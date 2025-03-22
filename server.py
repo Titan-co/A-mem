@@ -27,13 +27,13 @@ def create_app() -> FastAPI:
         redoc_url="/redoc"
     )
     
-    # Add CORS middleware
+    # Add CORS middleware with manual settings
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.CORS_ORIGINS,
+        allow_origins=["*"],  # Allow all origins
         allow_credentials=True,
-        allow_methods=settings.CORS_METHODS,
-        allow_headers=settings.CORS_HEADERS,
+        allow_methods=["*"],  # Allow all methods
+        allow_headers=["*"],  # Allow all headers
     )
     
     # Add routes
