@@ -150,3 +150,58 @@ OSError: [WinError 10038] An operation was attempted on something that is not a 
 2025-03-23 00:38:17,942 - connector_mcp - INFO - A-MEM server is up and running!
 2025-03-23 00:38:17,944 - connector_mcp - INFO - A-MEM server found, starting MCP handler
 2025-03-23 00:38:17,946 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 00:43:07,566 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 00:43:07,566 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 00:43:13,168 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 00:43:13,169 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 00:43:13,170 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 00:44:46,245 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 00:44:46,245 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 00:44:46,249 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 00:44:46,250 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 00:44:46,251 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 00:44:46,663 - connector_mcp - INFO - Received message: A-MEM MCP Connection Test
+2025-03-23 00:44:46,663 - connector_mcp - ERROR - Error in handle_mcp: Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "d:\MCP\A-mem\connector_mcp_wrapper.py", line 130, in handle_mcp
+    request = json.loads(line)
+  File "C:\Python313\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python313\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-03-23 00:44:47,668 - connector_mcp - INFO - Received message: ========================
+2025-03-23 00:44:47,669 - connector_mcp - ERROR - Error in handle_mcp: Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "d:\MCP\A-mem\connector_mcp_wrapper.py", line 130, in handle_mcp
+    request = json.loads(line)
+  File "C:\Python313\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python313\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-03-23 00:44:48,681 - connector_mcp - INFO - Received message: Sending: {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test-client", "version": "0.1.0"}}}
+2025-03-23 00:44:48,682 - connector_mcp - ERROR - Error in handle_mcp: Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "d:\MCP\A-mem\connector_mcp_wrapper.py", line 130, in handle_mcp
+    request = json.loads(line)
+  File "C:\Python313\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python313\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-03-23 00:44:49,693 - connector_mcp - INFO - Received message: {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test-client", "version": "0.1.0"}}}
+2025-03-23 00:44:49,693 - connector_mcp - INFO - Handling initialize request
+2025-03-23 00:44:49,694 - connector_mcp - INFO - Sent initialize response: {"jsonrpc": "2.0", "id": 1, "result": {"capabilities": {}}}
