@@ -1,146 +1,20 @@
-2025-03-22 17:13:13,331 - INFO - Initializing A-MEM cache directories...
-2025-03-22 17:13:13,331 - INFO - Removing old cache directory: D:\MCP\A-mem\.cache
-2025-03-22 17:13:13,347 - INFO - Old cache removed successfully
-2025-03-22 17:13:13,348 - INFO - Created main cache directory: D:\MCP\A-mem\.cache
-2025-03-22 17:13:13,348 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data
-2025-03-22 17:13:13,349 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/index
-2025-03-22 17:13:13,350 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/embeddings
-2025-03-22 17:13:13,351 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\sentence_transformers
-2025-03-22 17:13:13,352 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\transformers
-2025-03-22 17:13:13,352 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models
-2025-03-22 17:13:13,353 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2
-2025-03-22 17:13:13,354 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2/onnx
-2025-03-22 17:13:13,354 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\tmp
-2025-03-22 17:13:13,355 - INFO - Created environment file at D:\MCP\A-mem\.cache\.env
-2025-03-22 17:13:13,356 - INFO - Cache initialization complete!
-2025-03-22 17:13:13,356 - INFO - Testing cache directory access...
-2025-03-22 17:13:13,370 - INFO - Cache setup succeeded
-2025-03-22 17:13:13,460 - INFO - Step 1: Initialize cache directories
-2025-03-22 17:13:13,460 - INFO - Initializing A-MEM cache directories...
-2025-03-22 17:13:13,461 - INFO - Created main cache directory: D:\MCP\A-mem\.cache
-2025-03-22 17:13:13,461 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data
-2025-03-22 17:13:13,462 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/index
-2025-03-22 17:13:13,463 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/embeddings
-2025-03-22 17:13:13,464 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\sentence_transformers
-2025-03-22 17:13:13,464 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\transformers
-2025-03-22 17:13:13,465 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models
-2025-03-22 17:13:13,465 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2
-2025-03-22 17:13:13,466 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2/onnx
-2025-03-22 17:13:13,467 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\tmp
-2025-03-22 17:13:13,468 - INFO - Created environment file at D:\MCP\A-mem\.cache\.env
-2025-03-22 17:13:13,468 - INFO - Cache initialization complete!
-2025-03-22 17:13:13,468 - INFO - 
-Step 2: Test ChromaDB initialization
-2025-03-22 17:13:13,468 - INFO - Testing ChromaDB initialization...
-2025-03-22 17:13:18,888 - INFO - Testing cache directory access...
-2025-03-22 17:13:18,896 - INFO - Testing basic ChromaDB client...
-2025-03-22 17:13:18,916 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-2025-03-22 17:13:19,126 - INFO - Testing ChromaDB PersistentClient with path: D:\MCP\A-mem\.cache\chromadb_data
-2025-03-22 17:13:19,128 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-2025-03-22 17:13:19,446 - INFO - Testing ChromaRetriever class...
-2025-03-22 17:13:19,447 - INFO - Initializing ChromaDB (attempt 1/3)
-2025-03-22 17:13:19,471 - INFO - Successfully initialized ChromaDB PersistentClient
-2025-03-22 17:13:19,517 - INFO - Successfully initialized ChromaDB collection: test_collection
-2025-03-22 17:13:19,519 - INFO - Testing document addition...
-2025-03-22 17:13:19,741 - ERROR - Error adding document to ChromaDB: [Errno 13] Permission denied: 'C:\\Users\\zsun2\\.cache\\chroma\\onnx_models\\all-MiniLM-L6-v2\\onnx\\tokenizer_config.json' in add.
-2025-03-22 17:13:19,744 - ERROR - ChromaDB initialization failed
-2025-03-22 17:18:26,114 - INFO - Initializing A-MEM cache directories...
-2025-03-22 17:18:26,115 - INFO - Removing old cache directory: D:\MCP\A-mem\.cache
-2025-03-22 17:18:26,117 - INFO - Old cache removed successfully
-2025-03-22 17:18:26,118 - INFO - Created main cache directory: D:\MCP\A-mem\.cache
-2025-03-22 17:18:26,118 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data
-2025-03-22 17:18:26,119 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/index
-2025-03-22 17:18:26,120 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/embeddings
-2025-03-22 17:18:26,120 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\sentence_transformers
-2025-03-22 17:18:26,121 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\transformers
-2025-03-22 17:18:26,122 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models
-2025-03-22 17:18:26,122 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2
-2025-03-22 17:18:26,123 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2/onnx
-2025-03-22 17:18:26,124 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\tmp
-2025-03-22 17:18:26,125 - INFO - Created environment file at D:\MCP\A-mem\.cache\.env
-2025-03-22 17:18:26,125 - INFO - Cache initialization complete!
-2025-03-22 17:18:26,126 - INFO - Testing cache directory access...
-2025-03-22 17:18:26,126 - INFO - [OK] D:\MCP\A-mem\.cache exists and is writable
-2025-03-22 17:18:26,127 - INFO - [OK] D:\MCP\A-mem\.cache\chromadb_data exists and is writable
-2025-03-22 17:18:26,128 - INFO - [OK] D:\MCP\A-mem\.cache\onnx_models exists and is writable
-2025-03-22 17:18:26,128 - INFO - Cache directory contents:
-2025-03-22 17:18:26,128 - INFO - .cache/
-2025-03-22 17:18:26,128 - INFO -     .env
-2025-03-22 17:18:26,129 - INFO -     chromadb_data/
-2025-03-22 17:18:26,129 - INFO -         embeddings/
-2025-03-22 17:18:26,129 - INFO -         index/
-2025-03-22 17:18:26,130 - INFO -     onnx_models/
-2025-03-22 17:18:26,130 - INFO -         all-MiniLM-L6-v2/
-2025-03-22 17:18:26,130 - INFO -             onnx/
-2025-03-22 17:18:26,131 - INFO -     sentence_transformers/
-2025-03-22 17:18:26,131 - INFO -     tmp/
-2025-03-22 17:18:26,131 - INFO -     transformers/
-2025-03-22 17:18:26,131 - INFO - Cache setup succeeded
-2025-03-22 17:18:26,295 - INFO - Step 1: Initialize cache directories
-2025-03-22 17:18:26,295 - INFO - Initializing A-MEM cache directories...
-2025-03-22 17:18:26,295 - INFO - Created main cache directory: D:\MCP\A-mem\.cache
-2025-03-22 17:18:26,295 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data
-2025-03-22 17:18:26,296 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/index
-2025-03-22 17:18:26,296 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/embeddings
-2025-03-22 17:18:26,297 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\sentence_transformers
-2025-03-22 17:18:26,297 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\transformers
-2025-03-22 17:18:26,298 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models
-2025-03-22 17:18:26,298 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2
-2025-03-22 17:18:26,298 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2/onnx
-2025-03-22 17:18:26,299 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\tmp
-2025-03-22 17:18:26,299 - INFO - Created environment file at D:\MCP\A-mem\.cache\.env
-2025-03-22 17:18:26,300 - INFO - Cache initialization complete!
-2025-03-22 17:18:26,300 - INFO - 
-Step 2: Test ChromaDB initialization
-2025-03-22 17:18:26,300 - INFO - Testing ChromaDB initialization...
-2025-03-22 17:18:31,837 - INFO - Testing cache directory access...
-2025-03-22 17:18:31,837 - INFO - [OK] D:\MCP\A-mem\.cache exists and is writable
-2025-03-22 17:18:31,838 - INFO - [OK] D:\MCP\A-mem\.cache\chromadb_data exists and is writable
-2025-03-22 17:18:31,838 - INFO - [OK] D:\MCP\A-mem\.cache\onnx_models exists and is writable
-2025-03-22 17:18:31,838 - INFO - Testing basic ChromaDB client...
-2025-03-22 17:18:31,860 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-2025-03-22 17:18:32,064 - INFO - [OK] Basic ChromaDB client initialized successfully
-2025-03-22 17:18:32,064 - INFO - Testing ChromaDB PersistentClient with path: D:\MCP\A-mem\.cache\chromadb_data
-2025-03-22 17:18:32,066 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-2025-03-22 17:18:32,942 - INFO - [OK] ChromaDB PersistentClient initialized successfully
-2025-03-22 17:18:32,942 - INFO - Testing ChromaRetriever class...
-2025-03-22 17:18:32,943 - INFO - Initializing ChromaDB (attempt 1/3)
-2025-03-22 17:18:32,943 - INFO - Loading sentence transformer model from local cache: all-MiniLM-L6-v2
-2025-03-22 17:18:32,944 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
-2025-03-22 17:18:48,044 - INFO - Model loaded successfully
-2025-03-22 17:18:48,088 - INFO - Successfully initialized ChromaDB PersistentClient
-2025-03-22 17:18:48,162 - ERROR - ChromaDB initialization attempt 1 failed: Expected EmbeddingFunction.__call__ to have the following signature: odict_keys(['self', 'input']), got odict_keys(['self', 'texts'])
-Please see https://docs.trychroma.com/guides/embeddings for details of the EmbeddingFunction interface.
-Please note the recent change to the EmbeddingFunction interface: https://docs.trychroma.com/deployment/migration#migration-to-0.4.16---november-7,-2023 
-
-2025-03-22 17:18:48,162 - INFO - Retrying in 1 seconds...
-2025-03-22 17:18:49,162 - INFO - Initializing ChromaDB (attempt 2/3)
-2025-03-22 17:18:49,162 - INFO - Loading sentence transformer model from local cache: all-MiniLM-L6-v2
-2025-03-22 17:18:49,163 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
-2025-03-22 17:18:52,485 - INFO - Model loaded successfully
-2025-03-22 17:18:52,518 - INFO - Successfully initialized ChromaDB PersistentClient
-2025-03-22 17:18:52,537 - ERROR - ChromaDB initialization attempt 2 failed: Expected EmbeddingFunction.__call__ to have the following signature: odict_keys(['self', 'input']), got odict_keys(['self', 'texts'])
-Please see https://docs.trychroma.com/guides/embeddings for details of the EmbeddingFunction interface.
-Please note the recent change to the EmbeddingFunction interface: https://docs.trychroma.com/deployment/migration#migration-to-0.4.16---november-7,-2023 
-
-2025-03-22 17:18:52,538 - INFO - Retrying in 2 seconds...
-2025-03-22 17:18:54,538 - INFO - Initializing ChromaDB (attempt 3/3)
-2025-03-22 17:18:54,539 - INFO - Loading sentence transformer model from local cache: all-MiniLM-L6-v2
-2025-03-22 17:18:54,542 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
-2025-03-22 17:18:57,639 - INFO - Model loaded successfully
-2025-03-22 17:18:57,686 - INFO - Successfully initialized ChromaDB PersistentClient
-2025-03-22 17:18:57,707 - ERROR - ChromaDB initialization attempt 3 failed: Expected EmbeddingFunction.__call__ to have the following signature: odict_keys(['self', 'input']), got odict_keys(['self', 'texts'])
-Please see https://docs.trychroma.com/guides/embeddings for details of the EmbeddingFunction interface.
-Please note the recent change to the EmbeddingFunction interface: https://docs.trychroma.com/deployment/migration#migration-to-0.4.16---november-7,-2023 
-
-2025-03-22 17:18:57,707 - ERROR - All 3 attempts to initialize ChromaDB failed
-2025-03-22 17:18:57,743 - INFO - Loading sentence transformer model from local cache: all-MiniLM-L6-v2
-2025-03-22 17:18:57,744 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
-2025-03-22 17:19:12,165 - INFO - Model loaded successfully
-2025-03-22 17:19:12,193 - ERROR - Even fallback collection creation failed: Expected EmbeddingFunction.__call__ to have the following signature: odict_keys(['self', 'input']), got odict_keys(['self', 'texts'])
-Please see https://docs.trychroma.com/guides/embeddings for details of the EmbeddingFunction interface.
-Please note the recent change to the EmbeddingFunction interface: https://docs.trychroma.com/deployment/migration#migration-to-0.4.16---november-7,-2023 
-
-2025-03-22 17:19:12,193 - ERROR - ChromaRetriever will be non-functional
-2025-03-22 17:19:12,193 - ERROR - [ERROR] ChromaRetriever failed to initialize properly
-2025-03-22 17:19:12,194 - ERROR - ChromaDB initialization failed
+2025-03-22 18:16:21,806 - INFO - Initializing A-MEM cache directories...
+2025-03-22 18:16:21,806 - INFO - Removing old cache directory: D:\MCP\A-mem\.cache
+2025-03-22 18:16:21,822 - INFO - Old cache removed successfully
+2025-03-22 18:16:21,822 - INFO - Created main cache directory: D:\MCP\A-mem\.cache
+2025-03-22 18:16:21,823 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data
+2025-03-22 18:16:21,823 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/index
+2025-03-22 18:16:21,824 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/embeddings
+2025-03-22 18:16:21,825 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\sentence_transformers
+2025-03-22 18:16:21,825 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\transformers
+2025-03-22 18:16:21,826 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models
+2025-03-22 18:16:21,826 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2
+2025-03-22 18:16:21,827 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2/onnx
+2025-03-22 18:16:21,828 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\tmp
+2025-03-22 18:16:21,828 - INFO - Created environment file at D:\MCP\A-mem\.cache\.env
+2025-03-22 18:16:21,829 - INFO - Cache initialization complete!
+2025-03-22 18:16:21,829 - INFO - Testing cache directory access...
+2025-03-22 18:16:21,829 - INFO - [OK] D:\MCP\A-mem\.cache exists and is writable
+2025-03-22 18:16:21,830 - INFO - [OK] D:\MCP\A-mem\.cache\chromadb_data exists and is writable
+2025-03-22 18:16:21,831 - INFO - [OK] D:\MCP\A-mem\.cache\onnx_models exists and is writable
+2025-03-22 18:16:21,831 - INFO - Cache setup succeeded
