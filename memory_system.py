@@ -75,6 +75,10 @@ from llm_controller import LLMController
 from retrievers import SimpleEmbeddingRetriever, ChromaRetriever
 import json
 import logging
+import os
+import threading
+import time
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -229,7 +233,6 @@ class AgenticMemorySystem:
             pass
             
         # Try regex approaches - from most to least specific
-        import re
         # Pattern for complete JSON object with attributes
         patterns = [
             r'\{\s*"keywords"\s*:\s*\[[^\]]*\]\s*,\s*"context"\s*:\s*"[^"]*"\s*,\s*"tags"\s*:\s*\[[^\]]*\]\s*\}',
@@ -335,8 +338,6 @@ class AgenticMemorySystem:
             """ + truncated_content
         try:
             # Add timeout handling in case LLM takes too long
-            import threading
-            import time
             
             result = [None]
             error = [None]
@@ -689,7 +690,6 @@ class AgenticMemorySystem:
                 logger.debug(f"Cleaned response: {cleaned_response}")
                 
                 # Try more aggressive extraction with regex
-                import re
                 # Look for the entire evolution JSON structure
                 patterns = [
                     r'\{\s*"should_evolve"\s*:.*?\}',  # Find the entire evolution JSON
