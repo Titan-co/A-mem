@@ -171,8 +171,19 @@ class AgenticMemorySystem:
         """
         self.memories = {}
         self.model_name = model_name  # Store the model name for later use
-        self.retriever = SimpleEmbeddingRetriever(model_name)
-        self.chroma_retriever = ChromaRetriever()
+        
+        # Check if ChromaDB is disabled
+        disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
+        
+        if not disable_chromadb:
+            # Only initialize retrievers if ChromaDB is not disabled
+            self.retriever = SimpleEmbeddingRetriever(model_name)
+            self.chroma_retriever = ChromaRetriever()
+        else:
+            # Set to None if disabled
+            self.retriever = None
+            self.chroma_retriever = None
+            
         self.llm_controller = llm_controller or LLMController(llm_backend, llm_model, api_key, api_base)
         self.evo_cnt = 0
         self.evo_threshold = evo_threshold
@@ -416,16 +427,20 @@ class AgenticMemorySystem:
         note = MemoryNote(content=content, keywords=keyword, context=context, **kwargs)
         self.memories[note.id] = note
         
-        # Add to retrievers
-        metadata = {
-            "context": note.context,
-            "keywords": note.keywords,
-            "tags": note.tags,
-            "category": note.category,
-            "timestamp": note.timestamp
-        }
-        self.chroma_retriever.add_document(document=content, metadata=metadata, doc_id=note.id)
-        self.retriever.add_document(content)
+        # Check if ChromaDB is disabled
+        disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
+        
+        if not disable_chromadb and self.chroma_retriever is not None and self.retriever is not None:
+            # Add to retrievers only if ChromaDB is not disabled
+            metadata = {
+                "context": note.context,
+                "keywords": note.keywords,
+                "tags": note.tags,
+                "category": note.category,
+                "timestamp": note.timestamp
+            }
+            self.chroma_retriever.add_document(document=content, metadata=metadata, doc_id=note.id)
+            self.retriever.add_document(content)
         
         # First increment the counter
         self.evo_cnt += 1
@@ -434,7 +449,7 @@ class AgenticMemorySystem:
         
         if evolved == True:
             self.evo_cnt += 1
-            if self.evo_cnt % self.evo_threshold == 0:
+            if self.evo_cnt % self.evo_threshold == 0 and not disable_chromadb:
                 self.consolidate_memories()
         
         return note.id
@@ -591,6 +606,12 @@ class AgenticMemorySystem:
                 - score: Similarity score
                 - metadata: Additional memory metadata
         """
+        # Check if ChromaDB is disabled
+        disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
+        
+        # Return empty results if ChromaDB is disabled or retrievers are None
+        if disable_chromadb or self.chroma_retriever is None or self.retriever is None:
+            return []
         # Get results from ChromaDB
         chroma_results = self.chroma_retriever.search(query, k)
         memories = []
@@ -637,6 +658,12 @@ class AgenticMemorySystem:
         Returns:
             bool: Whether evolution occurred
         """
+        # Check if ChromaDB is disabled
+        disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
+        
+        # Skip evolution if ChromaDB is disabled or retrievers are None
+        if disable_chromadb or self.chroma_retriever is None or self.retriever is None:
+            return False
         # Get nearest neighbors
         neighbors = self.search(note.content, k=5)
         if not neighbors:
