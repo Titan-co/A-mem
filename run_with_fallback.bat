@@ -1,6 +1,6 @@
 @echo off
 echo =====================================
-echo A-MEM MCP Server - Fallback Mode
+echo A-MEM Server - Fallback Implementation
 echo =====================================
 echo.
 
@@ -17,20 +17,16 @@ for /f "tokens=1,* delims==" %%a in ('type .env ^| findstr /i "PORT="') do (
 echo Using port: %PORT%
 echo.
 
-echo Starting the simplified server with fallback mode enabled...
-echo This mode completely disables the chromadb and LLM for best compatibility
+echo Starting server with fallback ChromaDB implementation...
+echo This implementation avoids permission issues by using a simplified approach.
 echo.
 
-echo For debugging info, check the stderr_log.txt file
+echo Press Ctrl+C to stop the server.
 echo.
 
-rem Create needed environment variables for fallback mode
-set "DISABLE_CHROMADB=true"
-set "DISABLE_LLM=true"
-
-rem Start server with error logging
-python -m uvicorn simple_server:app --host 0.0.0.0 --port %PORT% --log-level debug 2>stderr_log.txt
+rem Start server with fallback mode explicitly enabled
+python -m uvicorn simple_server:app --host 0.0.0.0 --port %PORT% --log-level info
 
 echo.
-echo Server stopped. Check stderr_log.txt for details.
+echo Server stopped.
 pause

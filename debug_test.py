@@ -24,12 +24,12 @@ def test_server(base_url="http://localhost:8903"):
             print(f"Status: {response.status_code}")
             print(f"Response: {response.text}")
             if response.status_code == 200:
-                print("✓ Health check passed")
+                print("GOOD Health check passed")
             else:
-                print(f"✗ Health check failed: Status {response.status_code}")
+                print(f"BAD Health check failed: Status {response.status_code}")
                 return False
         except Exception as e:
-            print(f"✗ Health check error: {e}")
+            print(f"BAD Health check error: {e}")
             return False
         
         # Test 2: Create memory with minimal content
@@ -49,15 +49,15 @@ def test_server(base_url="http://localhost:8903"):
                 try:
                     memory_data = response.json()
                     memory_id = memory_data.get("id")
-                    print(f"✓ Created memory with ID: {memory_id}")
+                    print(f"GOOD Created memory with ID: {memory_id}")
                 except Exception as parse_error:
-                    print(f"✗ Could not parse response JSON: {parse_error}")
+                    print(f"BAD Could not parse response JSON: {parse_error}")
                     return False
             else:
-                print(f"✗ Create memory failed: Status {response.status_code}")
+                print(f"BAD Create memory failed: Status {response.status_code}")
                 return False
         except Exception as e:
-            print(f"✗ Create memory error: {e}")
+            print(f"BAD Create memory error: {e}")
             traceback.print_exc()
             return False
         
@@ -76,22 +76,22 @@ def test_server(base_url="http://localhost:8903"):
             if response.status_code == 200:
                 try:
                     results = response.json().get("results", [])
-                    print(f"✓ Found {len(results)} results")
+                    print(f"GOOD Found {len(results)} results")
                 except Exception as parse_error:
-                    print(f"✗ Could not parse search results: {parse_error}")
+                    print(f"BAD Could not parse search results: {parse_error}")
                     return False
             else:
-                print(f"✗ Search failed: Status {response.status_code}")
+                print(f"BAD Search failed: Status {response.status_code}")
                 return False
         except Exception as e:
-            print(f"✗ Search error: {e}")
+            print(f"BAD Search error: {e}")
             traceback.print_exc()
             return False
         
-        print("\n✓ All tests passed!")
+        print("\nGOOD All tests passed!")
         return True
     except Exception as e:
-        print(f"✗ Unhandled error: {e}")
+        print(f"BAD Unhandled error: {e}")
         traceback.print_exc()
         return False
 

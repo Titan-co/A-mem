@@ -1,0 +1,159 @@
+2025-03-22 19:07:00,718 - detailed_debug - INFO - ============================================================
+2025-03-22 19:07:00,718 - detailed_debug - INFO - A-MEM Detailed Diagnostic Tool
+2025-03-22 19:07:00,718 - detailed_debug - INFO - ============================================================
+2025-03-22 19:07:00,718 - detailed_debug - INFO - Checking environment variables...
+2025-03-22 19:07:00,720 - detailed_debug - INFO - OPENAI_API_KEY: [SET]
+2025-03-22 19:07:00,720 - detailed_debug - INFO -   API Key (masked): 2236...7f9e
+2025-03-22 19:07:00,720 - detailed_debug - INFO - OPENAI_API_URL: [SET to https://ark.cn-beijing.volces.com/api/v3]
+2025-03-22 19:07:00,720 - detailed_debug - INFO - MODEL_NAME: all-MiniLM-L6-v2
+2025-03-22 19:07:00,720 - detailed_debug - INFO - LLM_BACKEND: openai
+2025-03-22 19:07:00,721 - detailed_debug - INFO - LLM_MODEL: deepseek-v3-241226
+2025-03-22 19:07:00,721 - detailed_debug - INFO - PORT: 8903
+2025-03-22 19:07:00,721 - detailed_debug - INFO - Checking required modules...
+2025-03-22 19:07:01,077 - detailed_debug - INFO - GOOD fastapi imported successfully
+2025-03-22 19:07:01,125 - detailed_debug - INFO - GOOD uvicorn imported successfully
+2025-03-22 19:07:01,125 - detailed_debug - INFO - GOOD pydantic imported successfully
+2025-03-22 19:07:01,125 - detailed_debug - INFO - GOOD dotenv imported successfully
+2025-03-22 19:07:01,962 - detailed_debug - INFO - GOOD nltk imported successfully
+2025-03-22 19:07:05,293 - detailed_debug - INFO - GOOD sentence_transformers imported successfully
+2025-03-22 19:07:05,733 - detailed_debug - INFO - GOOD chromadb imported successfully
+2025-03-22 19:07:06,120 - detailed_debug - INFO - GOOD openai imported successfully
+2025-03-22 19:07:06,120 - detailed_debug - INFO - GOOD numpy imported successfully
+2025-03-22 19:07:06,121 - detailed_debug - INFO - GOOD sklearn imported successfully
+2025-03-22 19:07:07,137 - httpcore.connection - DEBUG - connect_tcp.started host='raw.githubusercontent.com' port=443 local_address=None timeout=5 socket_options=None
+2025-03-22 19:07:07,142 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029F10786120>
+2025-03-22 19:07:07,142 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000029F10745EB0> server_hostname='raw.githubusercontent.com' timeout=5
+2025-03-22 19:07:07,742 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029F107A4E10>
+2025-03-22 19:07:07,742 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-03-22 19:07:07,743 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-03-22 19:07:07,743 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-03-22 19:07:07,743 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-03-22 19:07:07,743 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-03-22 19:07:08,010 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'keep-alive'), (b'Content-Length', b'18288'), (b'Cache-Control', b'max-age=300'), (b'Content-Security-Policy', b"default-src 'none'; style-src 'unsafe-inline'; sandbox"), (b'Content-Type', b'text/plain; charset=utf-8'), (b'ETag', b'W/"f0e2cfd347bc54b6240e458e8000d2867f21ed7a5d603a3d9f4b6a6590eb9218"'), (b'Strict-Transport-Security', b'max-age=31536000'), (b'X-Content-Type-Options', b'nosniff'), (b'X-Frame-Options', b'deny'), (b'X-XSS-Protection', b'1; mode=block'), (b'X-GitHub-Request-Id', b'9868:14AB20:7F4A9D:9FA3BB:67DE3444'), (b'Content-Encoding', b'gzip'), (b'Accept-Ranges', b'bytes'), (b'Date', b'Sat, 22 Mar 2025 11:07:06 GMT'), (b'Via', b'1.1 varnish'), (b'X-Served-By', b'cache-gnv1820021-GNV'), (b'X-Cache', b'HIT'), (b'X-Cache-Hits', b'0'), (b'X-Timer', b'S1742641626.257329,VS0,VE1'), (b'Vary', b'Authorization,Accept-Encoding,Origin'), (b'Access-Control-Allow-Origin', b'*'), (b'Cross-Origin-Resource-Policy', b'cross-origin'), (b'X-Fastly-Request-ID', b'740e1c4ed50331f174c4aa4c55587ff0cb1ebeed'), (b'Expires', b'Sat, 22 Mar 2025 11:12:06 GMT'), (b'Source-Age', b'156')])
+2025-03-22 19:07:08,012 - httpx - INFO - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+2025-03-22 19:07:08,013 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-03-22 19:07:08,109 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-03-22 19:07:08,109 - httpcore.http11 - DEBUG - response_closed.started
+2025-03-22 19:07:08,109 - httpcore.http11 - DEBUG - response_closed.complete
+2025-03-22 19:07:08,109 - httpcore.connection - DEBUG - close.started
+2025-03-22 19:07:08,110 - httpcore.connection - DEBUG - close.complete
+2025-03-22 19:07:08,351 - asyncio - DEBUG - Using proactor: IocpProactor
+2025-03-22 19:07:08,667 - LiteLLM - DEBUG - [Non-Blocking] Unable to import GenericAPILogger - LiteLLM Enterprise Feature - No module named 'litellm.proxy.enterprise'
+2025-03-22 19:07:09,141 - detailed_debug - INFO - GOOD memory_system imported successfully
+2025-03-22 19:07:09,141 - detailed_debug - INFO - GOOD llm_controller imported successfully
+2025-03-22 19:07:09,141 - detailed_debug - INFO - GOOD retrievers imported successfully
+2025-03-22 19:07:09,141 - detailed_debug - INFO - Checking cache directories...
+2025-03-22 19:07:09,142 - detailed_debug - INFO - Created cache subdirectory: chromadb_data
+2025-03-22 19:07:09,143 - detailed_debug - INFO - GOOD Cache directory is writable
+2025-03-22 19:07:09,143 - detailed_debug - INFO - Testing LLM connection...
+2025-03-22 19:07:09,143 - detailed_debug - INFO - Using custom API URL: https://ark.cn-beijing.volces.com/api/v3
+2025-03-22 19:07:09,296 - detailed_debug - INFO - Testing with model: deepseek-v3-241226
+2025-03-22 19:07:09,299 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'You are a helpful assistant.'}, {'role': 'user', 'content': 'Say hello!'}], 'model': 'deepseek-v3-241226', 'max_tokens': 10}}
+2025-03-22 19:07:09,327 - openai._base_client - DEBUG - Sending HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions
+2025-03-22 19:07:09,327 - httpcore.connection - DEBUG - connect_tcp.started host='ark.cn-beijing.volces.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-03-22 19:07:09,346 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029F146FF610>
+2025-03-22 19:07:09,347 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000029F0ED83890> server_hostname='ark.cn-beijing.volces.com' timeout=5.0
+2025-03-22 19:07:09,422 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029F13E6BBB0>
+2025-03-22 19:07:09,422 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-22 19:07:09,423 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-03-22 19:07:09,423 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-22 19:07:09,423 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-03-22 19:07:09,423 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-22 19:07:10,075 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'server', b'istio-envoy'), (b'date', b'Sat, 22 Mar 2025 11:07:07 GMT'), (b'content-type', b'application/json; charset=utf-8'), (b'content-length', b'471'), (b'x-client-request-id', b'unknown-20250322190707-GLDKXoRX'), (b'x-envoy-upstream-service-time', b'606'), (b'x-request-id', b'0217426416278315f99813c8450753e1e4b8a8de21ece8ecb886d')])
+2025-03-22 19:07:10,075 - httpx - INFO - HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 19:07:10,076 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-22 19:07:10,076 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-03-22 19:07:10,076 - httpcore.http11 - DEBUG - response_closed.started
+2025-03-22 19:07:10,076 - httpcore.http11 - DEBUG - response_closed.complete
+2025-03-22 19:07:10,077 - openai._base_client - DEBUG - HTTP Response: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "200 OK" Headers({'server': 'istio-envoy', 'date': 'Sat, 22 Mar 2025 11:07:07 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '471', 'x-client-request-id': 'unknown-20250322190707-GLDKXoRX', 'x-envoy-upstream-service-time': '606', 'x-request-id': '0217426416278315f99813c8450753e1e4b8a8de21ece8ecb886d'})
+2025-03-22 19:07:10,077 - openai._base_client - DEBUG - request_id: 0217426416278315f99813c8450753e1e4b8a8de21ece8ecb886d
+2025-03-22 19:07:10,079 - detailed_debug - INFO - GOOD LLM connection successful. Response: 'Hello! How can I assist you today?'
+2025-03-22 19:07:10,080 - detailed_debug - INFO - Testing memory system module...
+2025-03-22 19:07:10,093 - httpcore.connection - DEBUG - close.started
+2025-03-22 19:07:10,094 - httpcore.connection - DEBUG - close.complete
+2025-03-22 19:07:10,096 - detailed_debug - INFO - Initializing memory system...
+2025-03-22 19:07:10,096 - detailed_debug - INFO - Settings: MODEL_NAME=all-MiniLM-L6-v2, LLM_BACKEND=openai, LLM_MODEL=deepseek-v3-241226
+2025-03-22 19:07:10,097 - memory_system - INFO - Loaded chromadb_config.py: USE_FALLBACK=True
+2025-03-22 19:07:10,097 - memory_system - INFO - Using fallback ChromaDB implementation
+2025-03-22 19:07:10,099 - fallback_chromadb - INFO - Initializing ChromaDB...
+2025-03-22 19:07:10,113 - urllib3.util.retry - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-03-22 19:07:10,118 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-03-22 19:07:10,295 - chromadb.config - DEBUG - Starting component System
+2025-03-22 19:07:10,295 - chromadb.config - DEBUG - Starting component Posthog
+2025-03-22 19:07:10,295 - chromadb.config - DEBUG - Starting component OpenTelemetryClient
+2025-03-22 19:07:10,295 - chromadb.config - DEBUG - Starting component SqliteDB
+2025-03-22 19:07:10,508 - chromadb.config - DEBUG - Starting component SimpleQuotaEnforcer
+2025-03-22 19:07:10,509 - chromadb.config - DEBUG - Starting component SimpleRateLimitEnforcer
+2025-03-22 19:07:10,509 - chromadb.config - DEBUG - Starting component LocalSegmentManager
+2025-03-22 19:07:10,509 - chromadb.config - DEBUG - Starting component LocalExecutor
+2025-03-22 19:07:10,509 - chromadb.config - DEBUG - Starting component SegmentAPI
+2025-03-22 19:07:10,527 - fallback_chromadb - INFO - Using persistent ChromaDB client
+2025-03-22 19:07:10,527 - fallback_chromadb - INFO - Initialized skip embedding function with dimension 384
+2025-03-22 19:07:10,570 - fallback_chromadb - ERROR - Error initializing ChromaDB: Expected EmbeddingFunction.__call__ to have the following signature: odict_keys(['self', 'input']), got odict_keys(['self', 'texts'])
+Please see https://docs.trychroma.com/guides/embeddings for details of the EmbeddingFunction interface.
+Please note the recent change to the EmbeddingFunction interface: https://docs.trychroma.com/deployment/migration#migration-to-0.4.16---november-7,-2023 
+
+2025-03-22 19:07:10,570 - fallback_chromadb - INFO - Using in-memory fallback
+2025-03-22 19:07:10,570 - memory_system - INFO - Fallback ChromaDB implementation initialized successfully
+2025-03-22 19:07:10,727 - detailed_debug - INFO - GOOD Memory system initialized successfully
+2025-03-22 19:07:10,727 - detailed_debug - INFO - Testing content analysis...
+2025-03-22 19:07:10,727 - detailed_debug - INFO - Triggering content analysis
+2025-03-22 19:07:10,731 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'You must respond with a JSON object. Return only the raw JSON with no Markdown formatting, no code blocks, and no backticks.'}, {'role': 'user', 'content': 'Generate a structured analysis of the following content by:\n            1. Identifying the most salient keywords (focus on nouns, verbs, and key concepts)\n            2. Extracting core themes and contextual elements\n            3. Creating relevant categorical tags\n\n            Format the response as a JSON object:\n            {\n                "keywords": [\n                    // several specific, distinct keywords that capture key concepts and terminology\n                    // Order from most to least important\n                    // Don\'t include keywords that are the name of the speaker or time\n                    // At least three keywords, but don\'t be too redundant.\n                ],\n                "context": \n                    // one sentence summarizing:\n                    // - Main topic/domain\n                    // - Key arguments/points\n                    // - Intended audience/purpose\n                ,\n                "tags": [\n                    // several broad categories/themes for classification\n                    // Include domain, format, and type tags\n                    // At least three tags, but don\'t be too redundant.\n                ]\n            }\n\n            IMPORTANT: Return ONLY the JSON object with no other text or formatting.\n\n            Content for analysis:\n            This is a test content for analysis'}], 'model': 'deepseek-v3-241226', 'max_tokens': 1000, 'response_format': {'type': 'json_object'}, 'temperature': 0.7}}
+2025-03-22 19:07:10,732 - openai._base_client - DEBUG - Sending HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions
+2025-03-22 19:07:10,732 - httpcore.connection - DEBUG - connect_tcp.started host='ark.cn-beijing.volces.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-03-22 19:07:10,753 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029F15A60C30>
+2025-03-22 19:07:10,754 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000029F15966840> server_hostname='ark.cn-beijing.volces.com' timeout=5.0
+2025-03-22 19:07:10,828 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029F1598E9F0>
+2025-03-22 19:07:10,828 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-22 19:07:10,829 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-03-22 19:07:10,829 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-22 19:07:10,829 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-03-22 19:07:10,829 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-22 19:07:11,017 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): us.i.posthog.com:443
+2025-03-22 19:07:12,108 - urllib3.connectionpool - DEBUG - https://us.i.posthog.com:443 "POST /batch/ HTTP/1.1" 200 15
+2025-03-22 19:07:14,097 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'server', b'istio-envoy'), (b'date', b'Sat, 22 Mar 2025 11:07:12 GMT'), (b'content-type', b'application/json; charset=utf-8'), (b'content-length', b'806'), (b'x-client-request-id', b'unknown-20250322190709-aCZHwGQi'), (b'x-envoy-upstream-service-time', b'3219'), (b'x-request-id', b'0217426416292377cc37f667a86cb86ae91e87193dfe09da94c41')])
+2025-03-22 19:07:14,097 - httpx - INFO - HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 19:07:14,098 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-22 19:07:14,098 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-03-22 19:07:14,098 - httpcore.http11 - DEBUG - response_closed.started
+2025-03-22 19:07:14,098 - httpcore.http11 - DEBUG - response_closed.complete
+2025-03-22 19:07:14,099 - openai._base_client - DEBUG - HTTP Response: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "200 OK" Headers({'server': 'istio-envoy', 'date': 'Sat, 22 Mar 2025 11:07:12 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '806', 'x-client-request-id': 'unknown-20250322190709-aCZHwGQi', 'x-envoy-upstream-service-time': '3219', 'x-request-id': '0217426416292377cc37f667a86cb86ae91e87193dfe09da94c41'})
+2025-03-22 19:07:14,099 - openai._base_client - DEBUG - request_id: 0217426416292377cc37f667a86cb86ae91e87193dfe09da94c41
+2025-03-22 19:07:14,100 - detailed_debug - INFO - GOOD Content analysis successful: {"keywords": ["analysis", "test", "content"], "context": "The content is a test example designed for analysis purposes, likely aimed at individuals or systems practicing content analysis techniques.", "tags": ["content analysis", "test material", "educational"]}
+2025-03-22 19:07:14,100 - detailed_debug - INFO - Testing memory creation...
+2025-03-22 19:07:14,103 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'You must respond with a JSON object. Return only the raw JSON with no Markdown formatting, no code blocks, and no backticks.'}, {'role': 'user', 'content': 'Generate a structured analysis of the following content by:\n            1. Identifying the most salient keywords (focus on nouns, verbs, and key concepts)\n            2. Extracting core themes and contextual elements\n            3. Creating relevant categorical tags\n\n            Format the response as a JSON object:\n            {\n                "keywords": [\n                    // several specific, distinct keywords that capture key concepts and terminology\n                    // Order from most to least important\n                    // Don\'t include keywords that are the name of the speaker or time\n                    // At least three keywords, but don\'t be too redundant.\n                ],\n                "context": \n                    // one sentence summarizing:\n                    // - Main topic/domain\n                    // - Key arguments/points\n                    // - Intended audience/purpose\n                ,\n                "tags": [\n                    // several broad categories/themes for classification\n                    // Include domain, format, and type tags\n                    // At least three tags, but don\'t be too redundant.\n                ]\n            }\n\n            IMPORTANT: Return ONLY the JSON object with no other text or formatting.\n\n            Content for analysis:\n            This is a test content for analysis'}], 'model': 'deepseek-v3-241226', 'max_tokens': 1000, 'response_format': {'type': 'json_object'}, 'temperature': 0.7}}
+2025-03-22 19:07:14,104 - openai._base_client - DEBUG - Sending HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions
+2025-03-22 19:07:14,104 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-22 19:07:14,105 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-03-22 19:07:14,105 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-22 19:07:14,105 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-03-22 19:07:14,105 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-22 19:07:16,844 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'server', b'istio-envoy'), (b'date', b'Sat, 22 Mar 2025 11:07:15 GMT'), (b'content-type', b'application/json; charset=utf-8'), (b'content-length', b'694'), (b'x-client-request-id', b'unknown-20250322190712-yFbmDSJq'), (b'x-envoy-upstream-service-time', b'2691'), (b'x-request-id', b'0217426416325137cc37f667a86cb86ae91e87193dfe09daf4a1a')])
+2025-03-22 19:07:16,846 - httpx - INFO - HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "HTTP/1.1 200 OK"
+2025-03-22 19:07:16,847 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-22 19:07:16,848 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-03-22 19:07:16,849 - httpcore.http11 - DEBUG - response_closed.started
+2025-03-22 19:07:16,850 - httpcore.http11 - DEBUG - response_closed.complete
+2025-03-22 19:07:16,851 - openai._base_client - DEBUG - HTTP Response: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "200 OK" Headers({'server': 'istio-envoy', 'date': 'Sat, 22 Mar 2025 11:07:15 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '694', 'x-client-request-id': 'unknown-20250322190712-yFbmDSJq', 'x-envoy-upstream-service-time': '2691', 'x-request-id': '0217426416325137cc37f667a86cb86ae91e87193dfe09daf4a1a'})
+2025-03-22 19:07:16,852 - openai._base_client - DEBUG - request_id: 0217426416325137cc37f667a86cb86ae91e87193dfe09daf4a1a
+2025-03-22 19:07:16,855 - detailed_debug - INFO - Memory evolution disabled for testing
+2025-03-22 19:07:16,856 - detailed_debug - INFO - GOOD Memory created with ID: eb7e1911-84a6-49eb-9a44-3d6f21ff794a
+2025-03-22 19:07:16,857 - detailed_debug - INFO - GOOD Memory read successful: eb7e1911-84a6-49eb-9a44-3d6f21ff794a
+2025-03-22 19:07:16,857 - detailed_debug - INFO -   Content: This is a test content for analysis
+2025-03-22 19:07:16,858 - detailed_debug - INFO -   Tags: ['test', 'debug']
+2025-03-22 19:07:16,859 - detailed_debug - INFO -   Context: The content is a test example designed for analysis purposes, likely intended for educational or instructional use.
+2025-03-22 19:07:16,860 - detailed_debug - INFO - Skipping server API test (use --test-server to include)
+2025-03-22 19:07:16,861 - detailed_debug - INFO - 
+============================================================
+2025-03-22 19:07:16,861 - detailed_debug - INFO - Diagnostic Summary
+2025-03-22 19:07:16,862 - detailed_debug - INFO - ============================================================
+2025-03-22 19:07:16,863 - detailed_debug - INFO - Environment: GOOD
+2025-03-22 19:07:16,864 - detailed_debug - INFO - Modules: GOOD
+2025-03-22 19:07:16,865 - detailed_debug - INFO - Cache Directories: GOOD
+2025-03-22 19:07:16,865 - detailed_debug - INFO - LLM Connection: GOOD
+2025-03-22 19:07:16,865 - detailed_debug - INFO - Memory Module: GOOD
+2025-03-22 19:07:16,865 - detailed_debug - INFO - 
+Detailed logs have been saved to detailed_debug.log
+2025-03-22 19:07:16,866 - detailed_debug - INFO - All diagnostics passed successfully!
+2025-03-22 19:07:17,359 - httpcore.connection - DEBUG - close.started
+2025-03-22 19:07:17,360 - httpcore.connection - DEBUG - close.complete

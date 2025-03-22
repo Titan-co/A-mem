@@ -115,9 +115,9 @@ for module in modules:
     module_name = module.replace("-", "_")
     try:
         m = importlib.import_module(module_name)
-        print(f"✓ {module}")
+        print(f"GOOD {module}")
     except ImportError as e:
-        print(f"✗ {module}: {e}")
+        print(f"BAD {module}: {e}")
 
 # Check files
 files = ["server.py", "routes.py", "config.py", "models.py", 
@@ -125,9 +125,9 @@ files = ["server.py", "routes.py", "config.py", "models.py",
 print("\nChecking files:")
 for file in files:
     if os.path.exists(file):
-        print(f"✓ {file} exists")
+        print(f"GOOD {file} exists")
     else:
-        print(f"✗ {file} missing")
+        print(f"BAD {file} missing")
 ```
 
 ## Testing the API

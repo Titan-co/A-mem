@@ -175,10 +175,42 @@ class AgenticMemorySystem:
         # Check if ChromaDB is disabled
         disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
         
+        # Try to load chromadb_config.py if it exists
+        use_fallback = False
+        try:
+            import importlib.util
+            config_path = os.path.join(os.path.dirname(__file__), "chromadb_config.py")
+            if os.path.exists(config_path):
+                spec = importlib.util.spec_from_file_location("chromadb_config", config_path)
+                chromadb_config = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(chromadb_config)
+                use_fallback = getattr(chromadb_config, "USE_FALLBACK", False)
+                logger.info(f"Loaded chromadb_config.py: USE_FALLBACK={use_fallback}")
+        except Exception as e:
+            logger.warning(f"Error loading chromadb_config.py: {e}")
+        
         if not disable_chromadb:
-            # Only initialize retrievers if ChromaDB is not disabled
-            self.retriever = SimpleEmbeddingRetriever(model_name)
-            self.chroma_retriever = ChromaRetriever()
+            if use_fallback:
+                # Use fallback implementation
+                logger.info("Using fallback ChromaDB implementation")
+                try:
+                    from fallback_chromadb import SimpleChromaRetriever
+                    self.retriever = None  # Simple embedding retriever not needed with fallback
+                    self.chroma_retriever = SimpleChromaRetriever()
+                    logger.info("Fallback ChromaDB implementation initialized successfully")
+                except Exception as e:
+                    logger.error(f"Error initializing fallback ChromaDB: {e}")
+                    self.retriever = None
+                    self.chroma_retriever = None
+            else:
+                # Use standard retrievers
+                try:
+                    self.retriever = SimpleEmbeddingRetriever(model_name)
+                    self.chroma_retriever = ChromaRetriever()
+                except Exception as e:
+                    logger.error(f"Error initializing retrievers: {e}")
+                    self.retriever = None
+                    self.chroma_retriever = None
         else:
             # Set to None if disabled
             self.retriever = None
@@ -430,7 +462,7 @@ class AgenticMemorySystem:
         # Check if ChromaDB is disabled
         disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
         
-        if not disable_chromadb and self.chroma_retriever is not None and self.retriever is not None:
+        if not disable_chromadb and self.chroma_retriever is not None:
             # Add to retrievers only if ChromaDB is not disabled
             metadata = {
                 "context": note.context,
@@ -439,8 +471,13 @@ class AgenticMemorySystem:
                 "category": note.category,
                 "timestamp": note.timestamp
             }
+            
+            # Add to ChromaRetriever (standard or fallback)
             self.chroma_retriever.add_document(document=content, metadata=metadata, doc_id=note.id)
-            self.retriever.add_document(content)
+            
+            # Add to SimpleEmbeddingRetriever if available
+            if self.retriever is not None:
+                self.retriever.add_document(content)
         
         # First increment the counter
         self.evo_cnt += 1
@@ -466,9 +503,62 @@ class AgenticMemorySystem:
         2. Adds all memory documents back to both retrievers with their current metadata
         3. Ensures consistent document representation across both retrieval systems
         """
+        # Check if we're using the fallback implementation
+        try:
+            import importlib.util
+            config_path = os.path.join(os.path.dirname(__file__), "chromadb_config.py")
+            use_fallback = False
+            if os.path.exists(config_path):
+                spec = importlib.util.spec_from_file_location("chromadb_config", config_path)
+                chromadb_config = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(chromadb_config)
+                use_fallback = getattr(chromadb_config, "USE_FALLBACK", False)
+        except Exception as e:
+            logger.warning(f"Error loading chromadb_config.py: {e}")
+            use_fallback = False
+
+        if use_fallback:
+            logger.info("Using fallback ChromaDB implementation, skipping traditional consolidation")
+            try:
+                # If using fallback implementation, recreate the retriever with all memories
+                from fallback_chromadb import SimpleChromaRetriever
+                collection_name = getattr(self.chroma_retriever, "collection_name", "memories")
+                self.chroma_retriever = SimpleChromaRetriever(collection_name)
+                
+                # Add all memories to the new fallback retriever
+                for memory_id, memory in self.memories.items():
+                    # Prepare metadata
+                    metadata = {
+                        "context": memory.context,
+                        "keywords": memory.keywords,
+                        "tags": memory.tags,
+                        "category": memory.category,
+                        "timestamp": memory.timestamp
+                    }
+                    
+                    # Add to fallback retriever
+                    self.chroma_retriever.add_document(
+                        document=memory.content,
+                        metadata=metadata,
+                        doc_id=memory_id
+                    )
+                
+                logger.info(f"Fallback memory consolidation complete. Updated {len(self.memories)} memories.")
+                return
+            except Exception as e:
+                logger.error(f"Error in fallback consolidation: {e}")
+                # Fall through to standard consolidation
+        
+        # Only proceed with standard consolidation if we have both retrievers
+        if self.retriever is None or self.chroma_retriever is None:
+            logger.warning("Cannot consolidate memories: retrievers not initialized")
+            return
+            
         # 1. Save original configuration
         model_name = self.model_name  # Use the stored model name instead of trying to extract it
-        collection_name = self.chroma_retriever.collection.name
+        collection_name = getattr(self.chroma_retriever, "collection_name", "memories")
+        if hasattr(self.chroma_retriever, "collection") and self.chroma_retriever.collection is not None:
+            collection_name = self.chroma_retriever.collection.name
         
         # 2. Clear and reinitialize retrievers
         # For SimpleEmbeddingRetriever, creating a new instance clears all documents
@@ -476,7 +566,8 @@ class AgenticMemorySystem:
         
         # For ChromaRetriever, we need to delete the collection and recreate it
         try:
-            self.chroma_retriever.client.delete_collection(collection_name)
+            if hasattr(self.chroma_retriever, "client") and self.chroma_retriever.client is not None:
+                self.chroma_retriever.client.delete_collection(collection_name)
         except Exception as e:
             logger.warning(f"Failed to delete collection {collection_name}: {e}")
         self.chroma_retriever = ChromaRetriever(collection_name)
@@ -609,43 +700,46 @@ class AgenticMemorySystem:
         # Check if ChromaDB is disabled
         disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
         
-        # Return empty results if ChromaDB is disabled or retrievers are None
-        if disable_chromadb or self.chroma_retriever is None or self.retriever is None:
+        # Return empty results if ChromaDB is disabled or all retrievers are None
+        if disable_chromadb or self.chroma_retriever is None:
             return []
+            
         # Get results from ChromaDB
         chroma_results = self.chroma_retriever.search(query, k)
         memories = []
         
         # Process ChromaDB results
-        for i, doc_id in enumerate(chroma_results['ids'][0]):
-            memory = self.memories.get(doc_id)
-            if memory:
-                memories.append({
-                    'id': doc_id,
-                    'content': memory.content,
-                    'context': memory.context,
-                    'keywords': memory.keywords,
-                    'score': chroma_results['distances'][0][i]
-                })
-                
-        # Get results from embedding retriever
-        embedding_results = self.retriever.search(query, k)
-        
-        # Combine results with deduplication
-        seen_ids = set(m['id'] for m in memories)
-        for result in embedding_results:
-            memory_id = result.get('id')
-            if memory_id and memory_id not in seen_ids:
-                memory = self.memories.get(memory_id)
+        if 'ids' in chroma_results and len(chroma_results['ids']) > 0 and len(chroma_results['ids'][0]) > 0:
+            for i, doc_id in enumerate(chroma_results['ids'][0]):
+                memory = self.memories.get(doc_id)
                 if memory:
                     memories.append({
-                        'id': memory_id,
+                        'id': doc_id,
                         'content': memory.content,
                         'context': memory.context,
                         'keywords': memory.keywords,
-                        'score': result.get('score', 0.0)
+                        'score': chroma_results['distances'][0][i] if 'distances' in chroma_results and len(chroma_results['distances']) > 0 else 0.5
                     })
-                    seen_ids.add(memory_id)
+        
+        # Get results from embedding retriever if available
+        if self.retriever is not None:
+            embedding_results = self.retriever.search(query, k)
+            
+            # Combine results with deduplication
+            seen_ids = set(m['id'] for m in memories)
+            for result in embedding_results:
+                memory_id = result.get('id')
+                if memory_id and memory_id not in seen_ids:
+                    memory = self.memories.get(memory_id)
+                    if memory:
+                        memories.append({
+                            'id': memory_id,
+                            'content': memory.content,
+                            'context': memory.context,
+                            'keywords': memory.keywords,
+                            'score': result.get('score', 0.0)
+                        })
+                        seen_ids.add(memory_id)
                     
         return memories[:k]
         
@@ -661,8 +755,11 @@ class AgenticMemorySystem:
         # Check if ChromaDB is disabled
         disable_chromadb = os.getenv("DISABLE_CHROMADB", "false").lower() in ("true", "1", "t")
         
-        # Skip evolution if ChromaDB is disabled or retrievers are None
-        if disable_chromadb or self.chroma_retriever is None or self.retriever is None:
+        # Also check for DISABLE_LLM which would make evolution impossible
+        disable_llm = os.getenv("DISABLE_LLM", "false").lower() in ("true", "1", "t")
+        
+        # Skip evolution if ChromaDB is disabled or chroma_retriever is None or LLM is disabled
+        if disable_chromadb or self.chroma_retriever is None or disable_llm:
             return False
         # Get nearest neighbors
         neighbors = self.search(note.content, k=5)

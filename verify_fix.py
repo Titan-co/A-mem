@@ -40,7 +40,7 @@ def test_memory_creation_without_chromadb():
         assert memory_system.retriever is None, "Retriever should be None with DISABLE_CHROMADB=true"
         assert memory_system.chroma_retriever is None, "ChromaRetriever should be None with DISABLE_CHROMADB=true"
         
-        logger.info("✓ Memory system initialized with retrievers set to None")
+        logger.info("GOOD Memory system initialized with retrievers set to None")
         
         # Create a memory
         test_content = "This is a test memory for verification"
@@ -57,14 +57,14 @@ def test_memory_creation_without_chromadb():
         memory = memory_system.memories[memory_id]
         assert memory.content == test_content, "Memory content doesn't match"
         
-        logger.info(f"✓ Memory created successfully with ID: {memory_id}")
+        logger.info(f"GOOD Memory created successfully with ID: {memory_id}")
         
         # Search for the memory (should return empty list)
         results = memory_system.search("test", k=5)
         assert isinstance(results, list), "Search results should be a list"
         assert len(results) == 0, "Search results should be empty with DISABLE_CHROMADB=true"
         
-        logger.info("✓ Search returns empty list as expected")
+        logger.info("GOOD Search returns empty list as expected")
         
         return True
     except Exception as e:

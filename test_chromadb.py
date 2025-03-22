@@ -40,7 +40,7 @@ def test_chromadb_initialization():
             client = chromadb.Client()
             logger.info("[OK] Basic ChromaDB client initialized successfully")
         except Exception as e:
-            logger.error(f"✗ Failed to initialize basic ChromaDB client: {e}")
+            logger.error(f"BAD Failed to initialize basic ChromaDB client: {e}")
             return False
             
         # Test persistent client with our cache dir
@@ -50,7 +50,7 @@ def test_chromadb_initialization():
             client = chromadb.PersistentClient(path=persist_dir)
             logger.info("[OK] ChromaDB PersistentClient initialized successfully")
         except Exception as e:
-            logger.warning(f"✗ Failed to initialize ChromaDB PersistentClient: {e}")
+            logger.warning(f"BAD Failed to initialize ChromaDB PersistentClient: {e}")
             logger.info("This is not a critical failure, testing our ChromaRetriever...")
         
         # Test our ChromaRetriever class
@@ -230,5 +230,5 @@ if __name__ == "__main__":
         sys.exit(1)
     
     # All tests passed!
-    logger.info("\n✓ All tests passed! ChromaDB is working properly with the cache setup.")
+    logger.info("\nGOOD All tests passed! ChromaDB is working properly with the cache setup.")
     sys.exit(0)

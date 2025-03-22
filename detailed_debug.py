@@ -78,9 +78,9 @@ def check_modules():
     for module_name in modules:
         try:
             module = importlib.import_module(module_name)
-            logger.info(f"✓ {module_name} imported successfully")
+            logger.info(f"GOOD {module_name} imported successfully")
         except Exception as e:
-            logger.error(f"✗ Error importing {module_name}: {e}")
+            logger.error(f"BAD Error importing {module_name}: {e}")
             all_ok = False
     
     return all_ok
@@ -117,9 +117,9 @@ def check_cache_dirs():
         with open(test_file_path, 'w') as f:
             f.write("test")
         os.remove(test_file_path)
-        logger.info("✓ Cache directory is writable")
+        logger.info("GOOD Cache directory is writable")
     except Exception as e:
-        logger.error(f"✗ Cache directory is not writable: {e}")
+        logger.error(f"BAD Cache directory is not writable: {e}")
         return False
     
     return True
@@ -158,14 +158,14 @@ def test_llm_connection(api_key, llm_model, api_url=None):
         # Check response
         if response and response.choices and len(response.choices) > 0:
             content = response.choices[0].message.content
-            logger.info(f"✓ LLM connection successful. Response: '{content}'")
+            logger.info(f"GOOD LLM connection successful. Response: '{content}'")
             return True
         else:
-            logger.error("✗ LLM response is empty or invalid")
+            logger.error("BAD LLM response is empty or invalid")
             return False
             
     except Exception as e:
-        logger.error(f"✗ LLM connection failed: {e}")
+        logger.error(f"BAD LLM connection failed: {e}")
         logger.error(traceback.format_exc())
         return False
 
@@ -201,7 +201,7 @@ def test_memory_module():
             # Replace the original method with our mock
             memory_system._process_memory_evolution = mock_evolution
             
-            logger.info("✓ Memory system initialized successfully")
+            logger.info("GOOD Memory system initialized successfully")
             
             # Test analyze_content method
             logger.info("Testing content analysis...")
@@ -211,7 +211,7 @@ def test_memory_module():
                 logger.info("Triggering content analysis")
                 analysis_result = memory_system.analyze_content(test_content)
                 
-                logger.info(f"✓ Content analysis successful: {json.dumps(analysis_result)}")
+                logger.info(f"GOOD Content analysis successful: {json.dumps(analysis_result)}")
                 
                 # Now test memory creation
                 logger.info("Testing memory creation...")
@@ -221,11 +221,11 @@ def test_memory_module():
                     category="Testing"
                 )
                 
-                logger.info(f"✓ Memory created with ID: {memory_id}")
+                logger.info(f"GOOD Memory created with ID: {memory_id}")
                 
                 # Read the memory
                 memory = memory_system.read(memory_id)
-                logger.info(f"✓ Memory read successful: {memory.id}")
+                logger.info(f"GOOD Memory read successful: {memory.id}")
                 logger.info(f"  Content: {memory.content}")
                 logger.info(f"  Tags: {memory.tags}")
                 logger.info(f"  Context: {memory.context}")
@@ -233,17 +233,17 @@ def test_memory_module():
                 return True
                 
             except Exception as e:
-                logger.error(f"✗ Content analysis failed: {e}")
+                logger.error(f"BAD Content analysis failed: {e}")
                 logger.error(traceback.format_exc())
                 return False
                 
         except Exception as e:
-            logger.error(f"✗ Memory system initialization failed: {e}")
+            logger.error(f"BAD Memory system initialization failed: {e}")
             logger.error(traceback.format_exc())
             return False
             
     except Exception as e:
-        logger.error(f"✗ Memory system module import failed: {e}")
+        logger.error(f"BAD Memory system module import failed: {e}")
         logger.error(traceback.format_exc())
         return False
 
@@ -262,12 +262,12 @@ def test_server_api(port):
         logger.info(f"Response: {response.text}")
         
         if response.status_code != 200:
-            logger.error("✗ Health check failed")
+            logger.error("BAD Health check failed")
             return False
         else:
-            logger.info("✓ Health check passed")
+            logger.info("GOOD Health check passed")
     except Exception as e:
-        logger.error(f"✗ Health check error: {e}")
+        logger.error(f"BAD Health check error: {e}")
         return False
     
     # Test memory creation with very detailed error capturing
@@ -303,10 +303,10 @@ def test_server_api(port):
         
         # Check response
         if response.status_code not in (200, 201):
-            logger.error(f"✗ Memory creation failed with status {response.status_code}")
+            logger.error(f"BAD Memory creation failed with status {response.status_code}")
             return False
         else:
-            logger.info("✓ Memory creation successful")
+            logger.info("GOOD Memory creation successful")
             
             # Extract memory ID
             try:
@@ -328,9 +328,9 @@ def test_server_api(port):
                     search_data = search_response.json()
                     results = search_data.get("results", [])
                     logger.info(f"Found {len(results)} results")
-                    logger.info("✓ Search successful")
+                    logger.info("GOOD Search successful")
                 else:
-                    logger.error("✗ Search failed")
+                    logger.error("BAD Search failed")
             except Exception as e:
                 logger.error(f"Error processing memory ID or searching: {e}")
                 logger.error(traceback.format_exc())
@@ -338,10 +338,10 @@ def test_server_api(port):
             
             return True
     except requests.exceptions.Timeout:
-        logger.error("✗ Memory creation timed out after 30 seconds")
+        logger.error("BAD Memory creation timed out after 30 seconds")
         return False
     except Exception as e:
-        logger.error(f"✗ Memory creation error: {e}")
+        logger.error(f"BAD Memory creation error: {e}")
         logger.error(traceback.format_exc())
         return False
 
@@ -387,13 +387,13 @@ def main():
     logger.info("\n" + "=" * 60)
     logger.info("Diagnostic Summary")
     logger.info("=" * 60)
-    logger.info(f"Environment: {'✓' if env_data['api_key'] else '✗'}")
-    logger.info(f"Modules: {'✓' if modules_ok else '✗'}")
-    logger.info(f"Cache Directories: {'✓' if cache_ok else '✗'}")
-    logger.info(f"LLM Connection: {'✓' if llm_ok else '✗'}")
-    logger.info(f"Memory Module: {'✓' if memory_ok else '✗'}")
+    logger.info(f"Environment: {'GOOD' if env_data['api_key'] else 'BAD'}")
+    logger.info(f"Modules: {'GOOD' if modules_ok else 'BAD'}")
+    logger.info(f"Cache Directories: {'GOOD' if cache_ok else 'BAD'}")
+    logger.info(f"LLM Connection: {'GOOD' if llm_ok else 'BAD'}")
+    logger.info(f"Memory Module: {'GOOD' if memory_ok else 'BAD'}")
     if server_ok is not None:
-        logger.info(f"Server API: {'✓' if server_ok else '✗'}")
+        logger.info(f"Server API: {'GOOD' if server_ok else 'BAD'}")
     
     logger.info("\nDetailed logs have been saved to detailed_debug.log")
     

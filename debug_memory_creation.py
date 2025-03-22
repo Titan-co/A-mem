@@ -62,7 +62,7 @@ def test_memory_creation_directly():
             # Replace the original method with our mock
             memory_system._process_memory_evolution = mock_evolution
             
-            logger.info("✓ Memory system initialized successfully")
+            logger.info("GOOD Memory system initialized successfully")
             
             # Step by step tests to find the issue
             
@@ -73,9 +73,9 @@ def test_memory_creation_directly():
             try:
                 logger.info("Calling analyze_content...")
                 analysis_result = memory_system.analyze_content(test_content)
-                logger.info(f"✓ Content analysis successful: {json.dumps(analysis_result)}")
+                logger.info(f"GOOD Content analysis successful: {json.dumps(analysis_result)}")
             except Exception as e:
-                logger.error(f"✗ Content analysis failed: {e}")
+                logger.error(f"BAD Content analysis failed: {e}")
                 logger.error(traceback.format_exc())
                 return False
             
@@ -88,9 +88,9 @@ def test_memory_creation_directly():
                     tags=["test", "debug"],
                     category="Testing"
                 )
-                logger.info(f"✓ Memory created with ID: {memory_id}")
+                logger.info(f"GOOD Memory created with ID: {memory_id}")
             except Exception as e:
-                logger.error(f"✗ Memory creation failed: {e}")
+                logger.error(f"BAD Memory creation failed: {e}")
                 logger.error(traceback.format_exc())
                 return False
             
@@ -100,16 +100,16 @@ def test_memory_creation_directly():
                 logger.info(f"Retrieving memory with ID: {memory_id}")
                 memory = memory_system.read(memory_id)
                 if memory:
-                    logger.info(f"✓ Memory retrieved successfully:")
+                    logger.info(f"GOOD Memory retrieved successfully:")
                     logger.info(f"  ID: {memory.id}")
                     logger.info(f"  Content: {memory.content[:50]}...")
                     logger.info(f"  Tags: {memory.tags}")
                     logger.info(f"  Keywords: {memory.keywords}")
                 else:
-                    logger.error(f"✗ Memory not found after creation: {memory_id}")
+                    logger.error(f"BAD Memory not found after creation: {memory_id}")
                     return False
             except Exception as e:
-                logger.error(f"✗ Memory retrieval failed: {e}")
+                logger.error(f"BAD Memory retrieval failed: {e}")
                 logger.error(traceback.format_exc())
                 return False
             
@@ -120,25 +120,25 @@ def test_memory_creation_directly():
                 results = memory_system.search("test debug", k=5)
                 logger.info(f"Found {len(results)} results")
                 if results:
-                    logger.info(f"✓ Search successful, first result: {results[0].get('id')} (Score: {results[0].get('score')})")
+                    logger.info(f"GOOD Search successful, first result: {results[0].get('id')} (Score: {results[0].get('score')})")
                 else:
                     logger.warning("No search results found, but this might be normal for a new memory")
             except Exception as e:
-                logger.error(f"✗ Search failed: {e}")
+                logger.error(f"BAD Search failed: {e}")
                 logger.error(traceback.format_exc())
                 # Don't return False here as search isn't critical for memory creation
             
             # All memory system tests passed
-            logger.info("\n✓ All memory system tests passed successfully!")
+            logger.info("\nGOOD All memory system tests passed successfully!")
             return True
             
         except Exception as e:
-            logger.error(f"✗ Memory system initialization failed: {e}")
+            logger.error(f"BAD Memory system initialization failed: {e}")
             logger.error(traceback.format_exc())
             return False
             
     except Exception as e:
-        logger.error(f"✗ Failed to import necessary modules: {e}")
+        logger.error(f"BAD Failed to import necessary modules: {e}")
         logger.error(traceback.format_exc())
         return False
 
@@ -158,13 +158,13 @@ def test_memory_creation_api(port=8903):
             response = requests.get(f"{base_url}/health", timeout=5)
             
             if response.status_code != 200:
-                logger.error(f"✗ Server is not responding correctly: {response.status_code}")
+                logger.error(f"BAD Server is not responding correctly: {response.status_code}")
                 logger.error(f"Response: {response.text}")
                 return False
             else:
-                logger.info("✓ Server is running and responding to health check")
+                logger.info("GOOD Server is running and responding to health check")
         except Exception as e:
-            logger.error(f"✗ Server is not running or not accessible: {e}")
+            logger.error(f"BAD Server is not running or not accessible: {e}")
             return False
         
         # Test memory creation with verbose logging
@@ -192,7 +192,7 @@ def test_memory_creation_api(port=8903):
             
             # Check if successful
             if response.status_code in (200, 201):
-                logger.info("✓ Memory creation API successful")
+                logger.info("GOOD Memory creation API successful")
                 
                 try:
                     memory_data = response.json()
@@ -201,19 +201,19 @@ def test_memory_creation_api(port=8903):
                 except Exception as e:
                     logger.error(f"Failed to parse response JSON: {e}")
             else:
-                logger.error(f"✗ Memory creation API failed with status {response.status_code}")
+                logger.error(f"BAD Memory creation API failed with status {response.status_code}")
                 logger.error(f"Response: {response.text}")
                 return False
             
             return True
             
         except Exception as e:
-            logger.error(f"✗ Error during API request: {e}")
+            logger.error(f"BAD Error during API request: {e}")
             logger.error(traceback.format_exc())
             return False
     
     except Exception as e:
-        logger.error(f"✗ Failed to import requests module: {e}")
+        logger.error(f"BAD Failed to import requests module: {e}")
         logger.error(traceback.format_exc())
         return False
 
@@ -282,7 +282,7 @@ def main():
         else:
             logger.info("Skipping API test as server is not running.")
     
-    logger.info("\n✓ All executed tests passed successfully!")
+    logger.info("\nGOOD All executed tests passed successfully!")
     logger.info("Detailed logs have been saved to memory_creation_debug.log")
     return True
 
