@@ -166,6 +166,7 @@ class AgenticMemorySystem:
             llm_controller: Optional custom LLM controller for testing
         """
         self.memories = {}
+        self.model_name = model_name  # Store the model name for later use
         self.retriever = SimpleEmbeddingRetriever(model_name)
         self.chroma_retriever = ChromaRetriever()
         self.llm_controller = llm_controller or LLMController(llm_backend, llm_model, api_key, api_base)
@@ -381,7 +382,7 @@ class AgenticMemorySystem:
         3. Ensures consistent document representation across both retrieval systems
         """
         # 1. Save original configuration
-        model_name = self.retriever.model.get_config_dict()['model_name']
+        model_name = self.model_name  # Use the stored model name instead of trying to extract it
         collection_name = self.chroma_retriever.collection.name
         
         # 2. Clear and reinitialize retrievers
