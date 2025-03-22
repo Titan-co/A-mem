@@ -205,3 +205,21 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 2025-03-23 00:44:49,693 - connector_mcp - INFO - Received message: {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test-client", "version": "0.1.0"}}}
 2025-03-23 00:44:49,693 - connector_mcp - INFO - Handling initialize request
 2025-03-23 00:44:49,694 - connector_mcp - INFO - Sent initialize response: {"jsonrpc": "2.0", "id": 1, "result": {"capabilities": {}}}
+2025-03-23 01:01:20,123 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 01:01:20,123 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 01:01:20,127 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 01:01:20,127 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 01:01:20,127 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 01:01:47,799 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 01:01:47,800 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 01:01:47,803 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 01:01:47,803 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 01:01:47,804 - connector_mcp - INFO - Starting MCP handler
+2025-03-23 01:01:48,179 - connector_mcp - INFO - Received message: {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test-client", "version": "0.1.0"}}}
+2025-03-23 01:01:48,180 - connector_mcp - INFO - Handling initialize request
+2025-03-23 01:01:48,180 - connector_mcp - INFO - Sent initialize response: {"jsonrpc": "2.0", "id": 1, "result": {"capabilities": {}}}
+2025-03-23 01:05:40,739 - connector_mcp - INFO - Connector MCP wrapper starting...
+2025-03-23 01:05:40,740 - connector_mcp - INFO - Checking for A-MEM server on port 8903
+2025-03-23 01:05:40,743 - connector_mcp - INFO - A-MEM server is up and running!
+2025-03-23 01:05:40,744 - connector_mcp - INFO - A-MEM server found, starting MCP handler
+2025-03-23 01:05:40,744 - connector_mcp - INFO - Starting MCP handler

@@ -8,11 +8,12 @@ import sys
 import socket
 import time
 import os
+import traceback
 
 def test_connection():
     """Test the ability to maintain a connection with the MCP protocol"""
-    print("A-MEM MCP Connection Test")
-    print("========================")
+    print("# A-MEM MCP Connection Test", file=sys.stderr)
+    print("# =========================", file=sys.stderr)
     
     # Send initialize message
     initialize_msg = {
@@ -26,18 +27,18 @@ def test_connection():
         }
     }
     
-    print(f"Sending: {json.dumps(initialize_msg)}")
+    print(f"# Sending initialize message:", file=sys.stderr)
     sys.stdout.write(json.dumps(initialize_msg) + "\n")
     sys.stdout.flush()
     
     # Wait for response
-    print("Waiting for response...")
+    print("# Waiting for response...", file=sys.stderr)
     line = sys.stdin.readline().strip()
-    print(f"Received: {line}")
+    print(f"# Received: {line}", file=sys.stderr)
     
     # Wait a bit
-    print("Waiting 5 seconds to test connection stability...")
-    time.sleep(5)
+    print("# Waiting 3 seconds to test connection stability...", file=sys.stderr)
+    time.sleep(3)
     
     # Send a create memory message
     create_msg = {
@@ -51,21 +52,48 @@ def test_connection():
         }
     }
     
-    print(f"Sending: {json.dumps(create_msg)}")
+    print(f"# Sending create_memory message:", file=sys.stderr)
     sys.stdout.write(json.dumps(create_msg) + "\n")
     sys.stdout.flush()
     
     # Wait for response
-    print("Waiting for response...")
+    print("# Waiting for response...", file=sys.stderr)
     line = sys.stdin.readline().strip()
-    print(f"Received: {line}")
+    print(f"# Received: {line}", file=sys.stderr)
     
-    print("Test completed successfully!")
+    # Send a search memories message
+    search_msg = {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "method": "search_memories",
+        "params": {
+            "query": "test connection",
+            "k": 3
+        }
+    }
+    
+    print(f"# Sending search_memories message:", file=sys.stderr)
+    sys.stdout.write(json.dumps(search_msg) + "\n")
+    sys.stdout.flush()
+    
+    # Wait for response
+    print("# Waiting for response...", file=sys.stderr)
+    line = sys.stdin.readline().strip()
+    print(f"# Received: {line}", file=sys.stderr)
+    
+    print("# Test completed successfully!", file=sys.stderr)
     return 0
 
 if __name__ == "__main__":
     try:
-        sys.exit(test_connection())
+        print("# Starting MCP connection test...", file=sys.stderr)
+        sys.stderr.flush()
+        result = test_connection()
+        print("# MCP connection test completed with result code: {}".format(result), file=sys.stderr)
+        sys.stderr.flush()
+        sys.exit(result)
     except Exception as e:
-        print(f"Test failed: {e}")
+        print(f"# ERROR: Test failed: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        sys.stderr.flush()
         sys.exit(1)

@@ -322,3 +322,57 @@
 2025-03-23 00:42:53,085 - INFO - [OK] D:\MCP\A-mem\.cache\chromadb_data exists and is writable
 2025-03-23 00:42:53,085 - INFO - [OK] D:\MCP\A-mem\.cache\onnx_models exists and is writable
 2025-03-23 00:42:53,085 - INFO - Cache setup succeeded
+2025-03-23 01:00:58,333 - INFO - Initializing A-MEM cache directories...
+2025-03-23 01:00:58,334 - INFO - Created main cache directory: D:\MCP\A-mem\.cache
+2025-03-23 01:00:58,334 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data
+2025-03-23 01:00:58,335 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/index
+2025-03-23 01:00:58,336 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/embeddings
+2025-03-23 01:00:58,336 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\sentence_transformers
+2025-03-23 01:00:58,337 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\transformers
+2025-03-23 01:00:58,338 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models
+2025-03-23 01:00:58,338 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2
+2025-03-23 01:00:58,339 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2/onnx
+2025-03-23 01:00:58,340 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\tmp
+2025-03-23 01:00:58,341 - INFO - Created environment file at D:\MCP\A-mem\.cache\.env
+2025-03-23 01:00:58,341 - INFO - Cache initialization complete!
+2025-03-23 01:00:58,341 - INFO - Testing cache directory access...
+2025-03-23 01:00:58,342 - INFO - [OK] D:\MCP\A-mem\.cache exists and is writable
+2025-03-23 01:00:58,342 - INFO - [OK] D:\MCP\A-mem\.cache\chromadb_data exists and is writable
+2025-03-23 01:00:58,343 - INFO - [OK] D:\MCP\A-mem\.cache\onnx_models exists and is writable
+2025-03-23 01:00:58,343 - INFO - Cache setup succeeded
+2025-03-23 01:03:31,294 - INFO - Initializing A-MEM cache directories...
+2025-03-23 01:03:31,294 - INFO - Created main cache directory: D:\MCP\A-mem\.cache
+2025-03-23 01:03:31,295 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data
+2025-03-23 01:03:31,295 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/index
+2025-03-23 01:03:31,296 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/embeddings
+2025-03-23 01:03:31,297 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\sentence_transformers
+2025-03-23 01:03:31,297 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\transformers
+2025-03-23 01:03:31,298 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models
+2025-03-23 01:03:31,299 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2
+2025-03-23 01:03:31,299 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2/onnx
+2025-03-23 01:03:31,300 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\tmp
+2025-03-23 01:03:31,301 - INFO - Created environment file at D:\MCP\A-mem\.cache\.env
+2025-03-23 01:03:31,301 - INFO - Cache initialization complete!
+2025-03-23 01:03:31,301 - INFO - Testing cache directory access...
+2025-03-23 01:03:31,302 - INFO - [OK] D:\MCP\A-mem\.cache exists and is writable
+2025-03-23 01:03:31,302 - INFO - [OK] D:\MCP\A-mem\.cache\chromadb_data exists and is writable
+2025-03-23 01:03:31,303 - INFO - [OK] D:\MCP\A-mem\.cache\onnx_models exists and is writable
+2025-03-23 01:03:31,303 - INFO - Cache setup succeeded
+2025-03-23 01:03:38,312 - INFO - Initializing A-MEM cache directories...
+2025-03-23 01:03:38,312 - INFO - Created main cache directory: D:\MCP\A-mem\.cache
+2025-03-23 01:03:38,313 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data
+2025-03-23 01:03:38,314 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/index
+2025-03-23 01:03:38,314 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\chromadb_data/embeddings
+2025-03-23 01:03:38,315 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\sentence_transformers
+2025-03-23 01:03:38,316 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\transformers
+2025-03-23 01:03:38,317 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models
+2025-03-23 01:03:38,317 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2
+2025-03-23 01:03:38,318 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\onnx_models/all-MiniLM-L6-v2/onnx
+2025-03-23 01:03:38,319 - INFO - Created cache subdirectory: D:\MCP\A-mem\.cache\tmp
+2025-03-23 01:03:38,319 - INFO - Created environment file at D:\MCP\A-mem\.cache\.env
+2025-03-23 01:03:38,320 - INFO - Cache initialization complete!
+2025-03-23 01:03:38,320 - INFO - Testing cache directory access...
+2025-03-23 01:03:38,321 - INFO - [OK] D:\MCP\A-mem\.cache exists and is writable
+2025-03-23 01:03:38,321 - INFO - [OK] D:\MCP\A-mem\.cache\chromadb_data exists and is writable
+2025-03-23 01:03:38,322 - INFO - [OK] D:\MCP\A-mem\.cache\onnx_models exists and is writable
+2025-03-23 01:03:38,322 - INFO - Cache setup succeeded

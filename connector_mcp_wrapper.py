@@ -127,9 +127,23 @@ def handle_mcp():
                 print(f"Received message: {line}", file=sys.stderr)
                 sys.stderr.flush()
                 
-                request = json.loads(line)
-                request_id = request.get("id")
-                method = request.get("method")
+                # Check if the line looks like JSON (starts with '{' after stripping whitespace)
+                if line.strip().startswith('{'): 
+                    try:
+                        request = json.loads(line)
+                        request_id = request.get("id")
+                        method = request.get("method")
+                    except json.JSONDecodeError as e:
+                        logger.error(f"Error parsing JSON: {e}")
+                        print(f"Error parsing JSON: {e}", file=sys.stderr)
+                        sys.stderr.flush()
+                        continue
+                else:
+                    # Just log non-JSON messages
+                    logger.info("Received non-JSON message (ignoring)")
+                    print(f"Received non-JSON message (ignoring)", file=sys.stderr)
+                    sys.stderr.flush()
+                    continue
                 
                 if method == "initialize":
                     # Respond to initialize
